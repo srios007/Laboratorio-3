@@ -107,7 +107,14 @@ class _HomeState extends State<Home> {
 
   Widget page0() {
     return Column(
-      children: [],
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Palette.cumbiaLight,
+          child: Text('Página ${page + 1}'),
+        ),
+      ],
     );
   }
 

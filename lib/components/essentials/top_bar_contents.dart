@@ -55,7 +55,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                     value ? _isHovering[0] = true : _isHovering[0] = false;
                   });
                 },
-                onTap: widget.function3,
+                onTap: widget.function1,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -249,7 +249,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[5] = false;
                         });
                       },
-                      onTap: widget.function5,
+                      onTap: widget.function6,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
