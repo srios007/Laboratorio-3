@@ -35,7 +35,7 @@ class _TopBarContentsState extends State<TopBarContents> {
     false,
     false
   ];
-
+int size = 20;
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -88,7 +88,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(width: screenSize.width / 30),
+                    SizedBox(width: screenSize.width / size),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -102,7 +102,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '¿Quiénes somos?',
+                            'Punto 1',
                             style: TextStyle(
                               color: _isHovering[1]
                                   ? Palette.cumbiaLight
@@ -126,7 +126,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         ],
                       ),
                     ),
-                    SizedBox(width: screenSize.width / 30),
+                    SizedBox(width: screenSize.width / size),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -140,7 +140,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Recarga Esmeraldas',
+                            'Punto 2',
                             style: TextStyle(
                               color: _isHovering[2]
                                   ? Palette.cumbiaLight
@@ -164,7 +164,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         ],
                       ),
                     ),
-                    SizedBox(width: screenSize.width / 30),
+                    SizedBox(width: screenSize.width / size),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -178,7 +178,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Contáctanos',
+                            'Punto 3',
                             style: TextStyle(
                               color: _isHovering[3]
                                   ? Palette.cumbiaLight
@@ -202,7 +202,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         ],
                       ),
                     ),
-                    SizedBox(width: screenSize.width / 30),
+                    SizedBox(width: screenSize.width / size),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -216,7 +216,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Documentos',
+                            'Punto 4',
                             style: TextStyle(
                               color: _isHovering[4]
                                   ? Palette.cumbiaLight
@@ -240,7 +240,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         ],
                       ),
                     ),
-                    SizedBox(width: screenSize.width / 30),
+                    SizedBox(width: screenSize.width / size),
                     InkWell(
                       onHover: (value) {
                         setState(() {
@@ -254,7 +254,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Documentos',
+                            'Punto 5',
                             style: TextStyle(
                               color: _isHovering[5]
                                   ? Palette.cumbiaLight

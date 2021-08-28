@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home/home.dart';
+import 'screens/point_1/point_1_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Laboratorio 3',
-    
-      home: Home(),
+      home: Point1Screen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
