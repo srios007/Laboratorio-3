@@ -1,5 +1,13 @@
 # Laboratorio 3
 
+### Integrantes
+
+* Christian Caro Vargas - 20181020027
+* Jorge Andrés Bohórquez Castellanos - 20191020016
+* Santiago Rios Valero - 20181020017
+
+### Laboratorio
+
 Hacer la implementación (simulación gráfica) en el lenguaje de programación preferido de los siguientes modelos de memoria:
 
 - Particiones estáticas fijas
@@ -11,8 +19,4 @@ Hacer la implementación (simulación gráfica) en el lenguaje de programación 
 1. Tomar como base un sistema con 16 MiB de memoria principal (2^24 = 0x000000 - 0xFFFFFF)
 2. Tener en cuenta los algoritmos de asignación (primer ajuste, mejor ajuste, peor ajuste).
 
-### Integrantes
 
-* Christian Caro Vargas - 20181020027
-* Jorge Andrés Bohórquez Castellanos - 20191020016
-* Santiago Rios Valero - 20181020017
