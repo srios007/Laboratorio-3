@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'my_home_page.dart';
+import 'screens/home/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Laboratorio 3',
     
-      home: MyHomePage(),
+      home: Home(),
     );
   }
 }

@@ -13,6 +13,6 @@ Hacer la implementación (simulación gráfica) en el lenguaje de programación 
 
 ### Integrantes
 
-* Christian Caro - 20181020027
-* Jorge Bohórquez - 20191020016
-* Santiago Ríos - 20181020017
+* Christian Caro Vargas - 20181020027
+* Jorge Andrés Bohórquez Castellanos - 20191020016
+* Santiago Rios Valero - 20181020017
