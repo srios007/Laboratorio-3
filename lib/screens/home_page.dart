@@ -43,32 +43,44 @@ class _HomePageState extends State<HomePage> {
         child: TopBarContents(
           () {
             setState(() {
-              page = 0;
+              if (page != 0) {
+                page = 0;
+              }
             });
           },
           () {
             setState(() {
-              page = 1;
+              if (page != 1) {
+                page = 1;
+              }
             });
           },
           () {
             setState(() {
-              page = 2;
+              if (page != 2) {
+                page = 2;
+              }
             });
           },
           () {
             setState(() {
-              page = 3;
+              if (page != 3) {
+                page = 3;
+              }
             });
           },
           () {
             setState(() {
-              page = 4;
+              if (page != 4) {
+                page = 4;
+              }
             });
           },
           () {
             setState(() {
-              page = 5;
+              if (page != 5) {
+                page = 5;
+              }
             });
           },
           _opacity,
@@ -94,93 +106,15 @@ class _HomePageState extends State<HomePage> {
     if (page == 0) {
       return Home();
     } else if (page == 1) {
-      return Point1Screen();
+      return Point1Screen(page: page);
     } else if (page == 2) {
-      return Point2Screen();
+      return Point2Screen(page: page);
     } else if (page == 3) {
-      return Point3Screen();
+      return Point3Screen(page: page);
     } else if (page == 4) {
-      return Point4Screen();
+      return Point4Screen(page: page);
     } else if (page == 5) {
-      return Point5Screen();
+      return Point5Screen(page: page);
     }
-  }
-
-  Widget page0() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        ),
-      ],
-    );
-  }
-
-  Widget page1() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        )
-      ],
-    );
-  }
-
-  Widget page2() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        )
-      ],
-    );
-  }
-
-  Widget page3() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        )
-      ],
-    );
-  }
-
-  Widget page4() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        )
-      ],
-    );
-  }
-
-  Widget page5() {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Palette.cumbiaLight,
-          child: Text('Página ${page + 1}'),
-        )
-      ],
-    );
   }
 }

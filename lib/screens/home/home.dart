@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
       fontSize: 15,
     );
     return Container(
+      transform: Matrix4.translationValues(0.0, -50.0, 0.0),
       margin: const EdgeInsets.symmetric(vertical: 50),
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height - 200,
