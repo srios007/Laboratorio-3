@@ -1,4 +1,4 @@
-## laboratorio_3
+# Laboratorio 3
 
 Hacer la implementación (simulación gráfica) en el lenguaje de programación preferido de los siguientes modelos de memoria:
 
