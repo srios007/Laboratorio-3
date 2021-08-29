@@ -6,7 +6,7 @@
 * Jorge Andrés Bohórquez Castellanos - 20191020016
 * Santiago Rios Valero - 20181020017
 
-### Laboratorio
+### Enunciado
 
 Hacer la implementación (simulación gráfica) en el lenguaje de programación preferido de los siguientes modelos de memoria:
 
