@@ -3,7 +3,7 @@
 ### Integrantes
 
 * Christian Caro Vargas - 20181020027
-* Jorge Andrés Bohórquez Castellanos - 20191020016
+* Jorge Andrés Bohórquez Castellanos - 20181020016
 * Santiago Rios Valero - 20181020017
 
 ### Enunciado
