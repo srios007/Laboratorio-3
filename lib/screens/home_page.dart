@@ -23,6 +23,13 @@ class _HomePageState extends State<HomePage> {
   bool partition9Bool = false;
   bool partition10Bool = false;
 
+  bool button1Bool = false;
+  bool button2Bool = false;
+  bool button3Bool = false;
+  bool button4Bool = false;
+  bool button5Bool = false;
+  bool button6Bool = false;
+
   _scrollListener() {
     setState(() {
       _scrollPosition = _scrollController.position.pixels;
@@ -59,72 +66,220 @@ class _HomePageState extends State<HomePage> {
             controller: _scrollController,
             physics: ClampingScrollPhysics(),
             child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 400,
-                        width: 500,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Palette.darkBlue,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 400,
+                          width: 500,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Palette.darkBlue,
+                            ),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CustomCheckBox(
+                                  partition: partition1Bool,
+                                  text: 'Proceso 1',
+                                  size: 2,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition2Bool,
+                                  text: 'Proceso 2',
+                                  size: 4,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition3Bool,
+                                  text: 'Proceso 3',
+                                  size: 6,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition4Bool,
+                                  text: 'Proceso 4',
+                                  size: 8,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition5Bool,
+                                  text: 'Proceso 5',
+                                  size: 10,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition6Bool,
+                                  text: 'Proceso 6',
+                                  size: 1,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition7Bool,
+                                  text: 'Proceso 7',
+                                  size: 3,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition8Bool,
+                                  text: 'Proceso 8',
+                                  size: 5,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition9Bool,
+                                  text: 'Proceso 9',
+                                  size: 7,
+                                ),
+                                CustomCheckBox(
+                                  partition: partition10Bool,
+                                  text: 'Proceso 10',
+                                  size: 9,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        child: Center(
+                        Container(
+                          padding: const EdgeInsets.only(top: 30),
+                          height: 400,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              CustomCheckBox(partition: partition1Bool, text: ''),
-                              CustomCheckBox(partition: partition2Bool, text: ''),
-                              CustomCheckBox(partition: partition3Bool, text: ''),
-                              CustomCheckBox(partition: partition4Bool, text: ''),
-                              CustomCheckBox(partition: partition5Bool, text: ''),
-                              CustomCheckBox(partition: partition6Bool, text: ''),
-                              CustomCheckBox(partition: partition7Bool, text: ''),
-                              CustomCheckBox(partition: partition8Bool, text: ''),
-                              CustomCheckBox(partition: partition9Bool, text: ''),
-                              CustomCheckBox(partition: partition10Bool, text: ''),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button1Bool) {
+                                      button1Bool = true;
+                                      button2Bool = false;
+                                      button3Bool = false;
+                                      button4Bool = false;
+                                      button5Bool = false;
+                                      button6Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Particiones estáticas fijas',
+                                isActive: button1Bool,
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button2Bool) {
+                                      button2Bool = true;
+                                      button1Bool = false;
+                                      button3Bool = false;
+                                      button4Bool = false;
+                                      button5Bool = false;
+                                      button6Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Particiones estáticas variables',
+                                isActive: button2Bool,
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button3Bool) {
+                                      button3Bool = true;
+                                      button2Bool = false;
+                                      button1Bool = false;
+                                      button4Bool = false;
+                                      button5Bool = false;
+                                      button6Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Particiones dinámicas con compactación',
+                                isActive: button3Bool,
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button4Bool) {
+                                      button4Bool = true;
+                                      button2Bool = false;
+                                      button3Bool = false;
+                                      button1Bool = false;
+                                      button5Bool = false;
+                                      button6Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Particiones dinámicas sin compactación',
+                                isActive: button4Bool,
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button5Bool) {
+                                      button5Bool = true;
+                                      button2Bool = false;
+                                      button3Bool = false;
+                                      button4Bool = false;
+                                      button1Bool = false;
+                                      button6Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Segmentación',
+                                isActive: button5Bool,
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (!button6Bool) {
+                                      button6Bool = true;
+                                      button2Bool = false;
+                                      button3Bool = false;
+                                      button4Bool = false;
+                                      button5Bool = false;
+                                      button1Bool = false;
+                                    }
+                                  });
+                                },
+                                title: 'Paginación',
+                                isActive: button6Bool,
+                              ),
                             ],
                           ),
-                        ),
-                      ),
-                    
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                    height: 802,
-                    width: 500,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Palette.darkBlue,
-                      ),
-                      color: Palette.lightBlue.withOpacity(0.3),
-                    ),
-                    child: Column(
-                      children: [
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
-                        staticPartitionContainer(),
+                        )
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                      height: 802,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.darkBlue,
+                        ),
+                        color: Palette.lightBlue.withOpacity(0.3),
+                      ),
+                      child: Column(
+                        children: [
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                          staticPartitionContainer(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -145,6 +300,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-
 }

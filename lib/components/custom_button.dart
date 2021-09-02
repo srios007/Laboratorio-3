@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
     this.title,
     this.backgroundColor,
     this.shadowColor,
-    this.canPush = false,
+    this.isActive = false,
     this.height,
     this.width,
     this.padding,
@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
   Color backgroundColor;
   Color shadowColor;
   Function onPressed;
-  bool canPush;
+  bool isActive;
   double height;
   double width;
 
@@ -30,16 +30,16 @@ class CustomButton extends StatelessWidget {
       children: <Widget>[
         Container(
           height: height ?? 40,
-          width: width ?? 157,
+          width: width ?? 300,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: canPush ? Palette.normalBlue : Palette.grey,
+            color: isActive ? Palette.normalBlue : Palette.grey,
           ),
           child: CupertinoButton(
             padding: padding ?? EdgeInsets.zero,
             child: Center(
               child: Text(
-                title ?? "Continuar",
+                title,
                 style: TextStyle(
                   fontSize: 16,
                   color: Palette.white,
@@ -48,7 +48,7 @@ class CustomButton extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            onPressed: onPressed(),
+            onPressed: onPressed,
           ),
         ),
       ],
