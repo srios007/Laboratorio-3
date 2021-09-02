@@ -44,19 +44,18 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             ),
           ),
         ),
-         Container(
+        Container(
           width: 70,
-
-           child: Center(
-             child: Text(
+          child: Center(
+            child: Text(
               '${widget.size} mb',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 20,
               ),
+            ),
+          ),
         ),
-           ),
-         ),
       ],
     );
   }
