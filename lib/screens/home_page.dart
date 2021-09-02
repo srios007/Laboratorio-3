@@ -62,30 +62,36 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    // margin: ,
-                    height: 400,
-                    width: 500,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Palette.darkBlue,
+                  Column(
+                    children: [
+                      Container(
+                        height: 400,
+                        width: 500,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Palette.darkBlue,
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              CustomCheckBox(partition: partition1Bool, text: ''),
+                              CustomCheckBox(partition: partition2Bool, text: ''),
+                              CustomCheckBox(partition: partition3Bool, text: ''),
+                              CustomCheckBox(partition: partition4Bool, text: ''),
+                              CustomCheckBox(partition: partition5Bool, text: ''),
+                              CustomCheckBox(partition: partition6Bool, text: ''),
+                              CustomCheckBox(partition: partition7Bool, text: ''),
+                              CustomCheckBox(partition: partition8Bool, text: ''),
+                              CustomCheckBox(partition: partition9Bool, text: ''),
+                              CustomCheckBox(partition: partition10Bool, text: ''),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CustomCheckBox(partition: partition1Bool, text: ''),
-                        CustomCheckBox(partition: partition2Bool, text: ''),
-                        CustomCheckBox(partition: partition3Bool, text: ''),
-                        CustomCheckBox(partition: partition4Bool, text: ''),
-                        CustomCheckBox(partition: partition5Bool, text: ''),
-                        CustomCheckBox(partition: partition6Bool, text: ''),
-                        CustomCheckBox(partition: partition7Bool, text: ''),
-                        CustomCheckBox(partition: partition8Bool, text: ''),
-                        CustomCheckBox(partition: partition9Bool, text: ''),
-                        CustomCheckBox(partition: partition10Bool, text: ''),
-                      ],
-                    ),
+                    
+                    ],
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
@@ -140,28 +146,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget checkbox(bool partition, String text) {
-    return Row(
-      children: [
-        Checkbox(
-          value: partition,
-          activeColor: Palette.normalBlue,
-          onChanged: (value) {
-            setState(() {
-              print(partition);
-              partition = value;
-              print(partition);
-            });
-          },
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-          ),
-        ),
-      ],
-    );
-  }
+
 }
