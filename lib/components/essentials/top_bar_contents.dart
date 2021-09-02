@@ -63,7 +63,7 @@ int size = 20;
                       'Laboratorio 3',
                       style: TextStyle(
                         color: _isHovering[0]
-                            ? Palette.cumbiaLight
+                            ? Palette.lightBlue
                             : Palette.white,
                         fontWeight: FontWeight.w300,
                         fontSize: 20,
@@ -105,7 +105,7 @@ int size = 20;
                             'Punto 1',
                             style: TextStyle(
                               color: _isHovering[1]
-                                  ? Palette.cumbiaLight
+                                  ? Palette.lightBlue
                                   : Palette.white,
                               fontWeight: FontWeight.w300,
                               fontSize: 20,
@@ -143,7 +143,7 @@ int size = 20;
                             'Punto 2',
                             style: TextStyle(
                               color: _isHovering[2]
-                                  ? Palette.cumbiaLight
+                                  ? Palette.lightBlue
                                   : Palette.white,
                               fontWeight: FontWeight.w300,
                               fontSize: 20,
@@ -181,7 +181,7 @@ int size = 20;
                             'Punto 3',
                             style: TextStyle(
                               color: _isHovering[3]
-                                  ? Palette.cumbiaLight
+                                  ? Palette.lightBlue
                                   : Palette.white,
                               fontWeight: FontWeight.w300,
                               fontSize: 20,
@@ -219,7 +219,7 @@ int size = 20;
                             'Punto 4',
                             style: TextStyle(
                               color: _isHovering[4]
-                                  ? Palette.cumbiaLight
+                                  ? Palette.lightBlue
                                   : Palette.white,
                               fontWeight: FontWeight.w300,
                               fontSize: 20,
@@ -257,7 +257,7 @@ int size = 20;
                             'Punto 5',
                             style: TextStyle(
                               color: _isHovering[5]
-                                  ? Palette.cumbiaLight
+                                  ? Palette.lightBlue
                                   : Palette.white,
                               fontWeight: FontWeight.w300,
                               fontSize: 20,

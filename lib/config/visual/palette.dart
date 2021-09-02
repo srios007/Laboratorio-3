@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static const Color cumbiaLight = Color(0xFF1EBFC7);
-  static const Color cumbiaDark = Color(0xFF0D8DA3);
+  static const Color lightBlue = Color(0xFF1EBFC7);
+  static const Color normalBlue = Color(0xFF0D8DA3);
   static const Color darkBlue = Color(0xFF001D2B);
   static const Color grey = Color(0xFF707070);
   static const Color darkGrey = Color(0xFF545871);

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
-import 'package:laboratorio_3/screens/screens.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,7 +12,16 @@ class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
   double _scrollPosition = 0;
   double _opacity = 0;
-  Key key;
+  bool partition1Bool = false;
+  bool partition2Bool = false;
+  bool partition3Bool = false;
+  bool partition4Bool = false;
+  bool partition5Bool = false;
+  bool partition6Bool = false;
+  bool partition7Bool = false;
+  bool partition8Bool = false;
+  bool partition9Bool = false;
+  bool partition10Bool = false;
 
   _scrollListener() {
     setState(() {
@@ -38,53 +46,8 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: Size(screenSize.width, 1000),
-        child: TopBarContents(
-          () {
-            setState(() {
-              if (page != 0) {
-                page = 0;
-              }
-            });
-          },
-          () {
-            setState(() {
-              if (page != 1) {
-                page = 1;
-              }
-            });
-          },
-          () {
-            setState(() {
-              if (page != 2) {
-                page = 2;
-              }
-            });
-          },
-          () {
-            setState(() {
-              if (page != 3) {
-                page = 3;
-              }
-            });
-          },
-          () {
-            setState(() {
-              if (page != 4) {
-                page = 4;
-              }
-            });
-          },
-          () {
-            setState(() {
-              if (page != 5) {
-                page = 5;
-              }
-            });
-          },
-          _opacity,
-        ),
+      appBar: AppBar(
+        title: Text('Laboratorio 3'),
       ),
       body: SafeArea(
         child: WebScrollbar(
@@ -95,26 +58,110 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             controller: _scrollController,
             physics: ClampingScrollPhysics(),
-            child: Center(child: pages()),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    // margin: ,
+                    height: 400,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Palette.darkBlue,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CustomCheckBox(partition: partition1Bool, text: ''),
+                        CustomCheckBox(partition: partition2Bool, text: ''),
+                        CustomCheckBox(partition: partition3Bool, text: ''),
+                        CustomCheckBox(partition: partition4Bool, text: ''),
+                        CustomCheckBox(partition: partition5Bool, text: ''),
+                        CustomCheckBox(partition: partition6Bool, text: ''),
+                        CustomCheckBox(partition: partition7Bool, text: ''),
+                        CustomCheckBox(partition: partition8Bool, text: ''),
+                        CustomCheckBox(partition: partition9Bool, text: ''),
+                        CustomCheckBox(partition: partition10Bool, text: ''),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                    height: 802,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Palette.darkBlue,
+                      ),
+                      color: Palette.lightBlue.withOpacity(0.3),
+                    ),
+                    child: Column(
+                      children: [
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                        staticPartitionContainer(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget pages() {
-    if (page == 0) {
-      return Home();
-    } else if (page == 1) {
-      return Point1Screen(page: page);
-    } else if (page == 2) {
-      return Point2Screen(page: page);
-    } else if (page == 3) {
-      return Point3Screen(page: page);
-    } else if (page == 4) {
-      return Point4Screen(page: page);
-    } else if (page == 5) {
-      return Point5Screen(page: page);
-    }
+  Widget staticPartitionContainer() {
+    return Container(
+      height: 50,
+      width: 500,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Palette.darkBlue,
+        ),
+        color: Palette.lightBlue.withOpacity(0.3),
+      ),
+    );
+  }
+
+  Widget checkbox(bool partition, String text) {
+    return Row(
+      children: [
+        Checkbox(
+          value: partition,
+          activeColor: Palette.normalBlue,
+          onChanged: (value) {
+            setState(() {
+              print(partition);
+              partition = value;
+              print(partition);
+            });
+          },
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+          ),
+        ),
+      ],
+    );
   }
 }
