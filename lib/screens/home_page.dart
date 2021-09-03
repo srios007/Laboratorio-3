@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                                     } else if (button2Bool) {
                                       variableStaticPartitionFuntion();
                                     } else if (button3Bool) {
-                                      dynamicCompactionPartitionFuntion();
+                                      dynamicCompactionPartitionFuntion(position, value);
                                     } else if (button4Bool) {
                                       dynamicPartitionWithoutCompactionFuntion();
                                     } else if (button5Bool) {
@@ -379,7 +379,58 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Particiones dinámicas de compactación
-  void dynamicCompactionPartitionFuntion() {}
+  void dynamicCompactionPartitionFuntion(int position, bool value) {
+    setState(() {
+      if (processList[position].size <= 2) {
+        processList[position].isSelected = value;
+        if (!value) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
+        } else {
+          if (auxMemoryList.length < 8) {
+            auxMemoryList.add(
+              processList[position],
+            );
+          } else {
+            processList[position].isSelected = false;
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: 'Memoria insuficiente',
+              desc: 'El proceso no se puede agregar porque no hay más memoria.',
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
+          }
+        }
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: 'No se puede agregar el proceso',
+          desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+          buttons: [
+            DialogButton(
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+      }
+    });
+  }
 
   Widget dynamicCompactionPartitionContainer() {
     return Stack(
