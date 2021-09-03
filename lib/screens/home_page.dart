@@ -47,16 +47,16 @@ class _HomePageState extends State<HomePage> {
   ];
   List<Process> auxMemoryList = [];
   List<Process> processList = [
-    Process(isSelected: false, name: 'Proceso1', size: 2),
-    Process(isSelected: false, name: 'Proceso2', size: 4),
-    Process(isSelected: false, name: 'Proceso3', size: 6),
-    Process(isSelected: false, name: 'Proceso4', size: 8),
-    Process(isSelected: false, name: 'Proceso5', size: 10),
-    Process(isSelected: false, name: 'Proceso6', size: 1),
+    Process(isSelected: false, name: 'Proceso1', size: 0.5),
+    Process(isSelected: false, name: 'Proceso2', size: 0.4),
+    Process(isSelected: false, name: 'Proceso3', size: 0.6),
+    Process(isSelected: false, name: 'Proceso4', size: 0.8),
+    Process(isSelected: false, name: 'Proceso5', size: 1),
+    Process(isSelected: false, name: 'Proceso6', size: 1.2),
     Process(isSelected: false, name: 'Proceso7', size: 3),
-    Process(isSelected: false, name: 'Proceso8', size: 5),
-    Process(isSelected: false, name: 'Proceso9', size: 7),
-    Process(isSelected: false, name: 'Proceso10', size: 9),
+    Process(isSelected: false, name: 'Proceso8', size: 1.5),
+    Process(isSelected: false, name: 'Proceso9', size: 1.7),
+    Process(isSelected: false, name: 'Proceso10', size: 1.9),
   ];
 
   @override
@@ -104,43 +104,7 @@ class _HomePageState extends State<HomePage> {
                                 return CustomCheckBox(
                                   process: processList[position],
                                   onChanged: (value) {
-                                    setState(() {
-                                     
-                                      if (processList[position].size <= 2) {
-                                         processList[position].isSelected = value;
-                                        if (!value) {
-                                          auxMemoryList.removeWhere((process) =>
-                                              process.size ==
-                                              processList[position].size);
-                                        } else {
-                                          auxMemoryList.add(
-                                            processList[position],
-                                          );
-                                        }
-                                      } else {
-                                        Alert(
-                                          context: context,
-                                          type: AlertType.error,
-                                          title:
-                                              'No se puede agregar el proceso',
-                                          desc:
-                                              'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
-                                          buttons: [
-                                            DialogButton(
-                                              child: Text(
-                                                "Ok",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
-                                              ),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              width: 120,
-                                            )
-                                          ],
-                                        ).show();
-                                      }
-                                    });
+                                    staticPartitionFuntion(position, value);
                                   },
                                 );
                               },
@@ -304,5 +268,57 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void staticPartitionFuntion(int position, bool value) {
+    setState(() {
+      if (processList[position].size <= 2) {
+        processList[position].isSelected = value;
+        if (!value) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
+        } else {
+          if (auxMemoryList.length < 8) {
+            auxMemoryList.add(
+              processList[position],
+            );
+          } else {
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: 'Memoria insuficiente',
+              desc: 'El proceso no se puede agregar porque no hay más memoria.',
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
+          } 
+        }
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: 'No se puede agregar el proceso',
+          desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+          buttons: [
+            DialogButton(
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+      }
+    });
   }
 }

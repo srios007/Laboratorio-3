@@ -1,7 +1,7 @@
 class Process {
   bool isSelected;  
   String name;  
-  int size;
+  double size;
   Process({
     this.isSelected,
     this.name,
