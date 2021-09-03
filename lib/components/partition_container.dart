@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/config/config.dart';
 
-class StaticPartitionContainer extends StatefulWidget {
+class PartitionContainer extends StatefulWidget {
   @override
-  _StaticPartitionContainerState createState() => _StaticPartitionContainerState();
+  _PartitionContainerState createState() => _PartitionContainerState();
 }
 
-class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
+class _PartitionContainerState extends State<PartitionContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +16,7 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
         border: Border.all(
           color: Palette.darkBlue,
         ),
-        color: Palette.black,
+        color: Palette.lightBlue.withOpacity(0.3),
       ),
     );
   }

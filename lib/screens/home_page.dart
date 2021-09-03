@@ -11,18 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-  double _scrollPosition = 0;
-  double _opacity = 0;
-  bool partition1Bool = false;
-  bool partition2Bool = false;
-  bool partition3Bool = false;
-  bool partition4Bool = false;
-  bool partition5Bool = false;
-  bool partition6Bool = false;
-  bool partition7Bool = false;
-  bool partition8Bool = false;
-  bool partition9Bool = false;
-  bool partition10Bool = false;
+  // double _scrollPosition = 0;
+  // double _opacity = 0;
 
   bool button1Bool = false;
   bool button2Bool = false;
@@ -33,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   _scrollListener() {
     setState(() {
-      _scrollPosition = _scrollController.position.pixels;
+      // _scrollPosition = _scrollController.position.pixels;
     });
   }
 
@@ -44,24 +34,36 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  List<Widget> memory = [
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
-    StaticPartitionContainer(),
+  List<Widget> memoryList = [
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
+    PartitionContainer(),
   ];
-  List<Process> processList = [];
-  int page = 0;
+  List<Widget> auxMemoryList = [];
+  List<Process> processList = [
+    Process(isSelected: false, name: 'Proceso1', size: 2),
+    Process(isSelected: false, name: 'Proceso2', size: 4),
+    Process(isSelected: false, name: 'Proceso3', size: 6),
+    Process(isSelected: false, name: 'Proceso4', size: 8),
+    Process(isSelected: false, name: 'Proceso5', size: 10),
+    Process(isSelected: false, name: 'Proceso6', size: 1),
+    Process(isSelected: false, name: 'Proceso7', size: 3),
+    Process(isSelected: false, name: 'Proceso8', size: 5),
+    Process(isSelected: false, name: 'Proceso9', size: 7),
+    Process(isSelected: false, name: 'Proceso10', size: 9),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    _opacity = _scrollPosition < screenSize.height * 0.40
-        ? _scrollPosition / (screenSize.height * 0.40)
-        : 1;
+    // var screenSize = MediaQuery.of(context).size;
+    // _opacity = _scrollPosition < screenSize.height * 0.40
+    //     ? _scrollPosition / (screenSize.height * 0.40)
+    //     : 1;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -95,60 +97,15 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CustomCheckBox(
-                                  partition: partition1Bool,
-                                  text: 'Proceso 1',
-                                  size: 2,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition2Bool,
-                                  text: 'Proceso 2',
-                                  size: 4,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition3Bool,
-                                  text: 'Proceso 3',
-                                  size: 6,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition4Bool,
-                                  text: 'Proceso 4',
-                                  size: 8,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition5Bool,
-                                  text: 'Proceso 5',
-                                  size: 10,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition6Bool,
-                                  text: 'Proceso 6',
-                                  size: 1,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition7Bool,
-                                  text: 'Proceso 7',
-                                  size: 3,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition8Bool,
-                                  text: 'Proceso 8',
-                                  size: 5,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition9Bool,
-                                  text: 'Proceso 9',
-                                  size: 7,
-                                ),
-                                CustomCheckBox(
-                                  partition: partition10Bool,
-                                  text: 'Proceso 10',
-                                  size: 9,
-                                ),
-                              ],
+                            child: ListView.builder(
+                              itemCount: processList.length,
+                              itemBuilder: (context, position) {
+                                return CustomCheckBox(
+                                  isSelected: processList[position].isSelected,
+                                  name: processList[position].name,
+                                  size: processList[position].size,
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -259,19 +216,45 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                      height: 802,
-                      width: 500,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Palette.darkBlue,
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                          height: 802,
+                          width: 500,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Palette.darkBlue,
+                            ),
+                            color: Palette.lightBlue.withOpacity(0.3),
+                          ),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: memoryList.length,
+                            itemBuilder: (context, position) {
+                              return memoryList[position];
+                            },
+                          ),
                         ),
-                        color: Palette.lightBlue.withOpacity(0.3),
-                      ),
-                      child: Column(
-                        children: [],
-                      ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                          height: 802,
+                          width: 500,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Palette.darkBlue,
+                            ),
+                            color: Palette.lightBlue.withOpacity(0.3),
+                          ),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: auxMemoryList.length,
+                            itemBuilder: (context, position) {
+                              return auxMemoryList[position];
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -282,6 +265,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
- 
 }
