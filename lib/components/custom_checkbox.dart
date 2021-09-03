@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorio_3/components/components.dart';
 
 import 'package:laboratorio_3/config/config.dart';
+import 'package:laboratorio_3/models/models.dart';
 
 class CustomCheckBox extends StatefulWidget {
-  bool isSelected;
-  String name;
-  int size;
   CustomCheckBox({
-    @required this.isSelected,
-    @required this.name,
-    @required this.size,
+    @required this.process,
+    @required this.listAux,
+    @required this.onChanged,
   });
+
+  Process process;
+  List<Widget> listAux;
+  Function(bool) onChanged;
   @override
   _CustomCheckBoxState createState() => _CustomCheckBoxState();
 }
@@ -24,21 +27,15 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Checkbox(
-            value: widget.isSelected,
+            value: widget.process.isSelected,
             activeColor: Palette.normalBlue,
-            onChanged: (value) {
-              setState(() {
-                print(widget.isSelected);
-                widget.isSelected = value;
-                print(widget.isSelected);
-              });
-            },
+            onChanged: widget.onChanged,
           ),
           Container(
             width: 130,
             child: Center(
               child: Text(
-                widget.name,
+                widget.process.name,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
@@ -50,7 +47,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             width: 70,
             child: Center(
               child: Text(
-                '${widget.size} mb',
+                '${widget.process.size} mb',
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,

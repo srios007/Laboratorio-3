@@ -101,9 +101,23 @@ class _HomePageState extends State<HomePage> {
                               itemCount: processList.length,
                               itemBuilder: (context, position) {
                                 return CustomCheckBox(
-                                  isSelected: processList[position].isSelected,
-                                  name: processList[position].name,
-                                  size: processList[position].size,
+                                  process: processList[position],
+                                  listAux: auxMemoryList,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      processList[position].isSelected = value;
+                                      if (!value) {
+                                        auxMemoryList.removeAt(position);
+                                      } else {
+                                        auxMemoryList.add(
+                                          StaticPartitionContainer(
+                                            process: processList[position],
+                                          ),
+                                        );
+                                      }
+                                      print('agrego algo');
+                                    });
+                                  },
                                 );
                               },
                             ),
