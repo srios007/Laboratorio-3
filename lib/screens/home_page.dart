@@ -266,6 +266,7 @@ class _HomePageState extends State<HomePage> {
             auxMemoryList.add(
               processList[position],
             );
+            
           } else {
             processList[position].isSelected = false;
             Alert(
