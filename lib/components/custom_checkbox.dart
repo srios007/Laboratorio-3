@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:laboratorio_3/components/components.dart';
-
 import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/models/models.dart';
 
 class CustomCheckBox extends StatefulWidget {
   CustomCheckBox({
     @required this.process,
-    @required this.listAux,
     @required this.onChanged,
   });
 
   Process process;
-  List<Widget> listAux;
   Function(bool) onChanged;
   @override
   _CustomCheckBoxState createState() => _CustomCheckBoxState();

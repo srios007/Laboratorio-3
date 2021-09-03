@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/models/models.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     PartitionContainer(),
     PartitionContainer(),
   ];
-  List<Widget> auxMemoryList = [];
+  List<Process> auxMemoryList = [];
   List<Process> processList = [
     Process(isSelected: false, name: 'Proceso1', size: 2),
     Process(isSelected: false, name: 'Proceso2', size: 4),
@@ -102,20 +103,43 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (context, position) {
                                 return CustomCheckBox(
                                   process: processList[position],
-                                  listAux: auxMemoryList,
                                   onChanged: (value) {
                                     setState(() {
-                                      processList[position].isSelected = value;
-                                      if (!value) {
-                                        auxMemoryList.removeAt(position);
+                                     
+                                      if (processList[position].size <= 2) {
+                                         processList[position].isSelected = value;
+                                        if (!value) {
+                                          auxMemoryList.removeWhere((process) =>
+                                              process.size ==
+                                              processList[position].size);
+                                        } else {
+                                          auxMemoryList.add(
+                                            processList[position],
+                                          );
+                                        }
                                       } else {
-                                        auxMemoryList.add(
-                                          StaticPartitionContainer(
-                                            process: processList[position],
-                                          ),
-                                        );
+                                        Alert(
+                                          context: context,
+                                          type: AlertType.error,
+                                          title:
+                                              'No se puede agregar el proceso',
+                                          desc:
+                                              'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+                                          buttons: [
+                                            DialogButton(
+                                              child: Text(
+                                                "Ok",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              ),
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              width: 120,
+                                            )
+                                          ],
+                                        ).show();
                                       }
-                                      print('agrego algo');
                                     });
                                   },
                                 );
@@ -264,7 +288,9 @@ class _HomePageState extends State<HomePage> {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return auxMemoryList[position];
+                              return StaticPartitionContainer(
+                                process: auxMemoryList[position],
+                              );
                             },
                           ),
                         ),

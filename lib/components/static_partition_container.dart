@@ -18,7 +18,8 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      margin: EdgeInsets.only(bottom: 100 -((widget.process.size/2)* 100)   ),
+      height: (widget.process.size/2)* 100,
       width: 500,
       decoration: BoxDecoration(
         border: Border.all(
@@ -27,6 +28,7 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
         color: Palette.black,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
             widget.process.name,
@@ -36,7 +38,7 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
             ),
           ),
           Text(
-            '${widget.process.size}',
+            '${widget.process.size} mb',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 15,
