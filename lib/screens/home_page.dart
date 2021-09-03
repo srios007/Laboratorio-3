@@ -283,6 +283,7 @@ class _HomePageState extends State<HomePage> {
               processList[position],
             );
           } else {
+             processList[position].isSelected = false;
             Alert(
               context: context,
               type: AlertType.error,
