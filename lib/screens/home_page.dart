@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   // double _scrollPosition = 0;
   // double _opacity = 0;
 
-  bool button1Bool = false;
+  bool button1Bool = true;
   bool button2Bool = false;
   bool button3Bool = false;
   bool button4Bool = false;
@@ -104,7 +104,19 @@ class _HomePageState extends State<HomePage> {
                                 return CustomCheckBox(
                                   process: processList[position],
                                   onChanged: (value) {
-                                    staticPartitionFuntion(position, value);
+                                    if (button1Bool) {
+                                      staticPartitionFuntion(position, value);
+                                    } else if (button2Bool) {
+                                      variableStaticPartitionFuntion();
+                                    } else if (button3Bool) {
+                                      dynamicCompactionPartitionFuntion();
+                                    } else if (button4Bool) {
+                                      dynamicPartitionWithoutCompactionFuntion();
+                                    } else if (button5Bool) {
+                                      segmentationFuntion();
+                                    } else if (button6Bool) {
+                                      paginationFuntion();
+                                    }
                                   },
                                 );
                               },
@@ -218,48 +230,19 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          height: 802,
-                          width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                            color: Palette.lightBlue.withOpacity(0.3),
-                          ),
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: memoryList.length,
-                            itemBuilder: (context, position) {
-                              return memoryList[position];
-                            },
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          height: 802,
-                          width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                            color: Palette.lightBlue.withOpacity(0.3),
-                          ),
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: auxMemoryList.length,
-                            itemBuilder: (context, position) {
-                              return StaticPartitionContainer(
-                                process: auxMemoryList[position],
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                    button1Bool
+                        ? staticPartitionContainer()
+                        : button2Bool
+                            ? variableStaticPartitionContainer()
+                            : button3Bool
+                                ? dynamicCompactionPartitionContainer()
+                                : button4Bool
+                                    ? dynamicPartitionWithoutCompactionContainer()
+                                    : button5Bool
+                                        ? segmentationContainer()
+                                        : button6Bool
+                                            ? paginationContainer()
+                                            : const SizedBox.shrink(),
                   ],
                 ),
               ),
@@ -270,6 +253,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+// Particiones estáticas fijas
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
       if (processList[position].size <= 2) {
@@ -283,7 +267,7 @@ class _HomePageState extends State<HomePage> {
               processList[position],
             );
           } else {
-             processList[position].isSelected = false;
+            processList[position].isSelected = false;
             Alert(
               context: context,
               type: AlertType.error,
@@ -300,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ).show();
-          } 
+          }
         }
       } else {
         Alert(
@@ -321,5 +305,160 @@ class _HomePageState extends State<HomePage> {
         ).show();
       }
     });
+  }
+
+  Widget staticPartitionContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: memoryList.length,
+            itemBuilder: (context, position) {
+              return memoryList[position];
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: auxMemoryList.length,
+            itemBuilder: (context, position) {
+              return StaticPartitionContainer(
+                process: auxMemoryList[position],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+// Particiones estáticas variables
+  void variableStaticPartitionFuntion() {}
+
+  Widget variableStaticPartitionContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
+  }
+
+// Particiones dinámicas de compactación
+  void dynamicCompactionPartitionFuntion() {}
+
+  Widget dynamicCompactionPartitionContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
+  }
+
+// Particiones dinámicas sin compactación
+  void dynamicPartitionWithoutCompactionFuntion() {}
+
+  Widget dynamicPartitionWithoutCompactionContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
+  }
+
+// Segmentación
+  void segmentationFuntion() {}
+
+  Widget segmentationContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
+  }
+
+// Paginación
+  void paginationFuntion() {}
+
+  Widget paginationContainer() {
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 802,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+      ],
+    );
   }
 }
