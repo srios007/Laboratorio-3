@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
+import 'package:laboratorio_3/models/models.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -43,6 +44,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  List<Widget> memory = [
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+    StaticPartitionContainer(),
+  ];
+  List<Process> processList = [];
   int page = 0;
   @override
   Widget build(BuildContext context) {
@@ -258,24 +270,7 @@ class _HomePageState extends State<HomePage> {
                         color: Palette.lightBlue.withOpacity(0.3),
                       ),
                       child: Column(
-                        children: [
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                          staticPartitionContainer(),
-                        ],
+                        children: [],
                       ),
                     ),
                   ],
@@ -288,16 +283,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget staticPartitionContainer() {
-    return Container(
-      height: 50,
-      width: 500,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Palette.darkBlue,
-        ),
-        color: Palette.lightBlue.withOpacity(0.3),
-      ),
-    );
-  }
+ 
 }
