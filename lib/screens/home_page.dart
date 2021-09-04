@@ -255,6 +255,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  bool hdhd() {
+    auxMemoryList.forEach((element) {
+      if (element.isDeleted) {
+        setState(() {
+          int index = auxMemoryList.indexWhere(
+            (process) => process.size == element.size,
+          );
+        });
+      }
+    });
+  }
+
 // Particiones estáticas fijas
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
