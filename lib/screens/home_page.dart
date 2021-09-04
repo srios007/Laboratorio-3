@@ -266,17 +266,47 @@ class _HomePageState extends State<HomePage> {
           int index = auxMemoryList.indexWhere(
             (process) => process.size == processList[position].size,
           );
-          auxMemoryList[index].isDeleted = true;
+          if (index == auxMemoryList.length - 1) {
+            auxMemoryList.removeWhere(
+                (process) => process.size == processList[position].size);
+          } else {
+            auxMemoryList[index].isDeleted = true;
+          }
         } else {
           if (auxMemoryList.length < 8) {
-            auxMemoryList.add(
-              Process(
-                isSelected: processList[position].isSelected,
-                isDeleted: processList[position].isDeleted,
-                name: processList[position].name,
-                size: processList[position].size,
-              ),
+            bool auxBool = false;
+            auxMemoryList.forEach((element) {
+              if (element.isDeleted) {
+                setState(() {
+                  auxBool = true;
+                });
+              }
+            });
+            int index = auxMemoryList.indexWhere(
+              (process) => process.size == processList[position].size,
             );
+            if (auxBool) {
+              auxMemoryList.removeAt(index);
+
+              auxMemoryList.insert(
+                index,
+                Process(
+                  isSelected: processList[position].isSelected,
+                  isDeleted: processList[position].isDeleted,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                ),
+              );
+            } else {
+              auxMemoryList.add(
+                Process(
+                  isSelected: processList[position].isSelected,
+                  isDeleted: processList[position].isDeleted,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                ),
+              );
+            }
           } else {
             processList[position].isSelected = false;
             Alert(
