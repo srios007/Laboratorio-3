@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   bool button4Bool = false;
   bool button5Bool = false;
   bool button6Bool = false;
+  bool canAdd = false;
 
   _scrollListener() {
     setState(() {
@@ -47,16 +48,16 @@ class _HomePageState extends State<HomePage> {
   ];
   List<Process> auxMemoryList = [];
   List<Process> processList = [
-    Process(isSelected: false, name: 'Proceso1', size: 0.5),
-    Process(isSelected: false, name: 'Proceso2', size: 0.4),
-    Process(isSelected: false, name: 'Proceso3', size: 0.6),
-    Process(isSelected: false, name: 'Proceso4', size: 0.8),
-    Process(isSelected: false, name: 'Proceso5', size: 1),
-    Process(isSelected: false, name: 'Proceso6', size: 1.2),
-    Process(isSelected: false, name: 'Proceso7', size: 3),
-    Process(isSelected: false, name: 'Proceso8', size: 1.5),
-    Process(isSelected: false, name: 'Proceso9', size: 1.7),
-    Process(isSelected: false, name: 'Proceso10', size: 1.9),
+    Process(isSelected: false, name: 'Proceso1', size: 0.5, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso2', size: 0.4, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso3', size: 0.6, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso4', size: 0.8, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso5', size: 1, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso6', size: 1.2, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso7', size: 3, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso8', size: 1.5, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso9', size: 1.7, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso10', size: 1.9, isDeleted: false),
   ];
 
   @override
@@ -109,7 +110,8 @@ class _HomePageState extends State<HomePage> {
                                     } else if (button2Bool) {
                                       variableStaticPartitionFuntion();
                                     } else if (button3Bool) {
-                                      dynamicCompactionPartitionFuntion(position, value);
+                                      dynamicCompactionPartitionFuntion(
+                                          position, value);
                                     } else if (button4Bool) {
                                       dynamicPartitionWithoutCompactionFuntion();
                                     } else if (button5Bool) {
@@ -259,14 +261,22 @@ class _HomePageState extends State<HomePage> {
       if (processList[position].size <= 2) {
         processList[position].isSelected = value;
         if (!value) {
-          auxMemoryList.removeWhere(
-              (process) => process.size == processList[position].size);
+          // auxMemoryList.removeWhere(
+          //     (process) => process.size == processList[position].size);
+          int index = auxMemoryList.indexWhere(
+            (process) => process.size == processList[position].size,
+          );
+          auxMemoryList[index].isDeleted = true;
         } else {
           if (auxMemoryList.length < 8) {
             auxMemoryList.add(
-              processList[position],
+              Process(
+                isSelected: processList[position].isSelected,
+                isDeleted: processList[position].isDeleted,
+                name: processList[position].name,
+                size: processList[position].size,
+              ),
             );
-            
           } else {
             processList[position].isSelected = false;
             Alert(
@@ -313,7 +323,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
@@ -324,7 +334,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
@@ -336,7 +346,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
@@ -386,7 +396,8 @@ class _HomePageState extends State<HomePage> {
         processList[position].isSelected = value;
         if (!value) {
           auxMemoryList.removeWhere(
-              (process) => process.size == processList[position].size);
+            (process) => process.size == processList[position].size,
+          );
         } else {
           if (auxMemoryList.length < 8) {
             auxMemoryList.add(
