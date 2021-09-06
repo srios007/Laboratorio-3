@@ -61,6 +61,9 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: false, name: 'Proceso10', size: 1.9, isDeleted: false),
   ];
   int index = 0;
+
+  List<Process> dynamicWithoutCompactionList = [];
+  int dynamicPosition = 0;
   @override
   Widget build(BuildContext context) {
     // var screenSize = MediaQuery.of(context).size;
@@ -114,7 +117,8 @@ class _HomePageState extends State<HomePage> {
                                       dynamicCompactionPartitionFuntion(
                                           position, value);
                                     } else if (button4Bool) {
-                                      dynamicPartitionWithoutCompactionFuntion();
+                                      dynamicPartitionWithoutCompactionFuntion(
+                                          position, value);
                                     } else if (button5Bool) {
                                       segmentationFuntion();
                                     } else if (button6Bool) {
@@ -259,20 +263,6 @@ class _HomePageState extends State<HomePage> {
 // Particiones estáticas fijas
 
   // ignore: missing_return
-  // bool getIndex() {
-  //   auxMemoryList.forEach((element) {
-  //     if (element.isDeleted) {
-  //       setState(() {
-  //         index = auxMemoryList.indexWhere(
-  //           (process) => process.size == element.size,
-  //         );
-  //       });
-  //       return true;
-  //     }
-  //   });
-  // }
-
-  // ignore: missing_return
   bool getIsDeleted() {
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
@@ -282,7 +272,7 @@ class _HomePageState extends State<HomePage> {
             (process) => process.isDeleted,
           );
         });
-        return true;
+        return canAdd;
       }
     });
   }
@@ -307,13 +297,9 @@ class _HomePageState extends State<HomePage> {
       if (value) {
         if (processList[position].size <= 2) {
           processList[position].isSelected = value;
-
           if (auxMemoryList.length < 8 || canAdd) {
-            print('1 ----------------------------');
             getPrueba();
             if (canAdd && !aux) {
-              print('2 ----------------------------');
-
               auxMemoryList.removeAt(index);
               auxMemoryList.insert(
                 index,
@@ -324,18 +310,8 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
-              print(processList[position].name);
-              print('aux: $aux');
-              print('canAdd: $canAdd');
-              auxMemoryList.forEach((element) {
-                print('${element.name}: ${element.isDeleted}');
-              });
-              print('\n');
-
               getIsDeleted();
             } else {
-              print('3 ----------------------------');
-
               auxMemoryList.add(
                 Process(
                   isSelected: true,
@@ -344,12 +320,6 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
-              print(processList[position].name);
-              auxMemoryList.forEach((element) {
-                print('${element.name}: ${element.isDeleted}');
-              });
-              print('\n');
-
               getIsDeleted();
             }
           } else {
@@ -398,20 +368,8 @@ class _HomePageState extends State<HomePage> {
         if (index == auxMemoryList.length - 1) {
           auxMemoryList.removeWhere(
               (process) => process.size == processList[position].size);
-          print(processList[position].name);
-
-          auxMemoryList.forEach((element) {
-            print('${element.name}: ${element.isDeleted}');
-          });
-          print('\n');
         } else {
           auxMemoryList[index].isDeleted = true;
-          print(processList[position].name);
-
-          auxMemoryList.forEach((element) {
-            print('${element.name}: ${element.isDeleted}');
-          });
-          print('\n');
         }
       }
     });
@@ -562,7 +520,46 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Particiones dinámicas sin compactación
-  void dynamicPartitionWithoutCompactionFuntion() {}
+  void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
+    setState(() {
+      print('-------------------');
+      if (verifySpace() < 16.0) {
+        dynamicWithoutCompactionList.add(
+          Process(
+            isSelected: processList[position].isSelected,
+            isDeleted: processList[position].isDeleted,
+            name: processList[position].name,
+            size: processList[position].size,
+          ),
+        );
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: 'Memoria insuficiente',
+          desc: 'El proceso no se puede agregar porque no hay más memoria.',
+          buttons: [
+            DialogButton(
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Palette.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+      }
+    });
+  }
+
+  double verifySpace() {
+    double aux = 0;
+    dynamicWithoutCompactionList.forEach((element) {
+      aux += element.size;
+    });
+    return aux;
+  }
 
   Widget dynamicPartitionWithoutCompactionContainer() {
     return Stack(
@@ -576,6 +573,26 @@ class _HomePageState extends State<HomePage> {
               color: Palette.darkBlue,
             ),
             color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: dynamicWithoutCompactionList.length,
+            itemBuilder: (context, position) {
+              return DynamicPartitionContainer(
+                process: dynamicWithoutCompactionList[position],
+              );
+            },
           ),
         ),
       ],

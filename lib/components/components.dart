@@ -5,3 +5,4 @@ export 'custom_checkbox.dart';
 export 'custom_button.dart';
 export 'partition_container.dart';
 export 'static_partition_container.dart';
+export 'dynamic_partition_container.dart';
