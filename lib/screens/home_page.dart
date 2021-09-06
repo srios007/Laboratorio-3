@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   bool button5Bool = false;
   bool button6Bool = false;
   bool canAdd = false;
+  bool aux = false;
 
   _scrollListener() {
     setState(() {
@@ -255,67 +256,101 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
 // Particiones estáticas fijas
 
   // ignore: missing_return
-  bool getIndex() {
+  // bool getIndex() {
+  //   auxMemoryList.forEach((element) {
+  //     if (element.isDeleted) {
+  //       setState(() {
+  //         index = auxMemoryList.indexWhere(
+  //           (process) => process.size == element.size,
+  //         );
+  //       });
+  //       return true;
+  //     }
+  //   });
+  // }
+
+  // ignore: missing_return
+  bool getIsDeleted() {
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
         setState(() {
+          canAdd = true;
           index = auxMemoryList.indexWhere(
-            (process) => process.size == element.size,
+            (process) => process.isDeleted,
           );
         });
         return true;
       }
     });
   }
+
+  void getPrueba() {
+    auxMemoryList.forEach((element) {
+      if (element.isDeleted) {
+        setState(() {
+          aux = true;
+        });
+      } else {
+        setState(() {
+          aux = false;
+        });
+      }
+    });
+  }
+
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
-      if (processList[position].size <= 2) {
-        processList[position].isSelected = value;
-        if (!value) {
-          int index = auxMemoryList.indexWhere(
-            (process) => process.size == processList[position].size,
-          );
-          if (index == auxMemoryList.length - 1) {
-            auxMemoryList.removeWhere(
-                (process) => process.size == processList[position].size);
-          } else {
-            auxMemoryList[index].isDeleted = true;
-          }
-        } else {
-          if (auxMemoryList.length < 8) {
-            bool auxBool = false;
-            auxMemoryList.forEach((element) {
-              if (element.isDeleted) {
-                setState(() {
-                  auxBool = true;
-                });
-              }
-            });
-            getIndex();
-            if (auxBool) {
+      getIsDeleted();
+      if (value) {
+        if (processList[position].size <= 2) {
+          processList[position].isSelected = value;
+
+          if (auxMemoryList.length < 8 || canAdd) {
+            print('1 ----------------------------');
+            getPrueba();
+            if (canAdd && !aux) {
+              print('2 ----------------------------');
+
               auxMemoryList.removeAt(index);
               auxMemoryList.insert(
                 index,
                 Process(
-                  isSelected: processList[position].isSelected,
-                  isDeleted: processList[position].isDeleted,
+                  isSelected: true,
+                  isDeleted: false,
                   name: processList[position].name,
                   size: processList[position].size,
                 ),
               );
+              print(processList[position].name);
+              print('aux: $aux');
+              print('canAdd: $canAdd');
+              auxMemoryList.forEach((element) {
+                print('${element.name}: ${element.isDeleted}');
+              });
+              print('\n');
+
+              getIsDeleted();
             } else {
+              print('3 ----------------------------');
+
               auxMemoryList.add(
                 Process(
-                  isSelected: processList[position].isSelected,
-                  isDeleted: processList[position].isDeleted,
+                  isSelected: true,
+                  isDeleted: false,
                   name: processList[position].name,
                   size: processList[position].size,
                 ),
               );
+              print(processList[position].name);
+              auxMemoryList.forEach((element) {
+                print('${element.name}: ${element.isDeleted}');
+              });
+              print('\n');
+
+              getIsDeleted();
             }
           } else {
             processList[position].isSelected = false;
@@ -336,24 +371,48 @@ class _HomePageState extends State<HomePage> {
               ],
             ).show();
           }
+        } else {
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'No se puede agregar el proceso',
+            desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Palette.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
         }
       } else {
-        Alert(
-          context: context,
-          type: AlertType.error,
-          title: 'No se puede agregar el proceso',
-          desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
-          buttons: [
-            DialogButton(
-              child: Text(
-                'Ok',
-                style: TextStyle(color: Palette.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              width: 120,
-            )
-          ],
-        ).show();
+        processList[position].isSelected = false;
+        int index = auxMemoryList.indexWhere(
+          (process) => process.size == processList[position].size,
+        );
+        if (index == auxMemoryList.length - 1) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
+          print(processList[position].name);
+
+          auxMemoryList.forEach((element) {
+            print('${element.name}: ${element.isDeleted}');
+          });
+          print('\n');
+        } else {
+          auxMemoryList[index].isDeleted = true;
+          print(processList[position].name);
+
+          auxMemoryList.forEach((element) {
+            print('${element.name}: ${element.isDeleted}');
+          });
+          print('\n');
+        }
       }
     });
   }
