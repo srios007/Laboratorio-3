@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   bool button4Bool = false;
   bool button5Bool = false;
   bool button6Bool = false;
-  bool canAdd = false;
+  bool isNotEmpty = false;
   bool aux = false;
 
   _scrollListener() {
@@ -267,12 +267,13 @@ class _HomePageState extends State<HomePage> {
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
         setState(() {
-          canAdd = true;
+          isNotEmpty = true;
           index = auxMemoryList.indexWhere(
             (process) => process.isDeleted,
           );
         });
-        return canAdd;
+
+        return isNotEmpty;
       }
     });
   }
@@ -297,9 +298,10 @@ class _HomePageState extends State<HomePage> {
       if (value) {
         if (processList[position].size <= 2) {
           processList[position].isSelected = value;
-          if (auxMemoryList.length < 8 || canAdd) {
+          if (auxMemoryList.length < 8 || isNotEmpty) {
             getPrueba();
-            if (canAdd && !aux) {
+            print('isNotEmpty: $isNotEmpty');
+            if (isNotEmpty) {
               auxMemoryList.removeAt(index);
               auxMemoryList.insert(
                 index,
@@ -310,6 +312,9 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              auxMemoryList.forEach((element) {
+                print('${element.name}: ${element.isDeleted}\n\n');
+              });
               getIsDeleted();
             } else {
               auxMemoryList.add(
@@ -320,6 +325,9 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              auxMemoryList.forEach((element) {
+                print('${element.name}: ${element.isDeleted}\n\n');
+              });
               getIsDeleted();
             }
           } else {
