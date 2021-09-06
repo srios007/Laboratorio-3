@@ -330,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                 DialogButton(
                   child: Text(
                     'Ok',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Palette.white, fontSize: 20),
                   ),
                   onPressed: () => Navigator.pop(context),
                   width: 120,
@@ -349,7 +349,7 @@ class _HomePageState extends State<HomePage> {
             DialogButton(
               child: Text(
                 'Ok',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(color: Palette.white, fontSize: 20),
               ),
               onPressed: () => Navigator.pop(context),
               width: 120,
