@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: false, name: 'Proceso9', size: 1.7, isDeleted: false),
     Process(isSelected: false, name: 'Proceso10', size: 1.9, isDeleted: false),
   ];
-
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     // var screenSize = MediaQuery.of(context).size;
@@ -255,14 +255,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  bool hdhd() {
+  bool getIndex() {
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
         setState(() {
-          int index = auxMemoryList.indexWhere(
+          index = auxMemoryList.indexWhere(
             (process) => process.size == element.size,
           );
         });
+        return true;
       }
     });
   }
@@ -294,12 +295,12 @@ class _HomePageState extends State<HomePage> {
                 });
               }
             });
-            int index = auxMemoryList.indexWhere(
-              (process) => process.size == processList[position].size,
-            );
+            getIndex();
+            // index = auxMemoryList.indexWhere(
+            //   (process) => process.size == processList[position].size,
+            // );
             if (auxBool) {
               auxMemoryList.removeAt(index);
-
               auxMemoryList.insert(
                 index,
                 Process(
