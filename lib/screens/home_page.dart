@@ -255,6 +255,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
+// Particiones estáticas fijas
+
+  // ignore: missing_return
   bool getIndex() {
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
@@ -267,15 +271,11 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
-
-// Particiones estáticas fijas
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
       if (processList[position].size <= 2) {
         processList[position].isSelected = value;
         if (!value) {
-          // auxMemoryList.removeWhere(
-          //     (process) => process.size == processList[position].size);
           int index = auxMemoryList.indexWhere(
             (process) => process.size == processList[position].size,
           );
@@ -296,9 +296,6 @@ class _HomePageState extends State<HomePage> {
               }
             });
             getIndex();
-            // index = auxMemoryList.indexWhere(
-            //   (process) => process.size == processList[position].size,
-            // );
             if (auxBool) {
               auxMemoryList.removeAt(index);
               auxMemoryList.insert(
