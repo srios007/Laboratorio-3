@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   bool button5Bool = false;
   bool button6Bool = false;
   bool isNotEmpty = false;
+  bool findSpaceBool = false;
 
   _scrollListener() {
     setState(() {
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                           child: Center(
                             child: ListView.builder(
                               itemCount: processList.length,
+                              physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, position) {
                                 return CustomCheckBox(
                                   process: processList[position],
@@ -269,13 +271,14 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-void setFalseProcess(){
-  setState(() {
-    processList.forEach((element) { 
-      element.isSelected = false;
+
+  void setFalseProcess() {
+    setState(() {
+      processList.forEach((element) {
+        element.isSelected = false;
+      });
     });
-  });
-}
+  }
 // Particiones estáticas fijas
 
   // ignore: missing_return
@@ -430,62 +433,61 @@ void setFalseProcess(){
   }
 
 // Particiones estáticas variables
+
+  // ignore: missing_return
+  bool findSpace(int position) {
+    setState(() {
+      findSpaceBool = false;
+    });
+    auxMemoryList.forEach((process) {
+      if (processList[position].size <= process.size && process.isDeleted) {
+        setState(() {
+          findSpaceBool = true;
+          index = auxMemoryList.indexWhere(
+            (process2) => process2.size == processList[position].size,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
   void variableStaticPartitionFuntion(int position, bool value) {
     setState(() {
-      getIsDeleted();
+      findSpace(position);
       if (value) {
-        if (processList[position].size <= 2) {
-          processList[position].isSelected = value;
-          if (auxMemoryList.length < 8 || isNotEmpty) {
-            if (isNotEmpty) {
-              auxMemoryList.removeAt(index);
-              auxMemoryList.insert(
-                index,
-                Process(
-                  isSelected: true,
-                  isDeleted: false,
-                  name: processList[position].name,
-                  size: processList[position].size,
-                ),
-              );
-              getIsDeleted();
-            } else {
-              auxMemoryList.add(
-                Process(
-                  isSelected: true,
-                  isDeleted: false,
-                  name: processList[position].name,
-                  size: processList[position].size,
-                ),
-              );
-              getIsDeleted();
-            }
+        processList[position].isSelected = value;
+        if (auxMemoryList.length < 8 || findSpaceBool) {
+          if (findSpaceBool) {
+            auxMemoryList.removeAt(index);
+            auxMemoryList.insert(
+              index,
+              Process(
+                isSelected: true,
+                isDeleted: false,
+                name: processList[position].name,
+                size: processList[position].size,
+              ),
+            );
+            getIsDeleted();
           } else {
-            processList[position].isSelected = false;
-            Alert(
-              context: context,
-              type: AlertType.error,
-              title: 'Memoria insuficiente',
-              desc: 'El proceso no se puede agregar porque no hay más memoria.',
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Palette.white, fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  width: 120,
-                )
-              ],
-            ).show();
+            auxMemoryList.add(
+              Process(
+                isSelected: true,
+                isDeleted: false,
+                name: processList[position].name,
+                size: processList[position].size,
+              ),
+            );
+            getIsDeleted();
           }
         } else {
           processList[position].isSelected = false;
           Alert(
             context: context,
             type: AlertType.error,
-            title: 'No se puede agregar el proceso',
-            desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+            title: 'Memoria insuficiente',
+            desc: 'El proceso no se puede agregar porque no hay más memoria.',
             buttons: [
               DialogButton(
                 child: Text(
@@ -543,6 +545,7 @@ void setFalseProcess(){
             itemBuilder: (context, position) {
               return DynamicPartitionContainer(
                 process: auxMemoryList[position],
+                withCompaction: false,
               );
             },
           ),
@@ -554,54 +557,35 @@ void setFalseProcess(){
 // Particiones dinámicas de compactación
   void dynamicCompactionPartitionFuntion(int position, bool value) {
     setState(() {
-      if (processList[position].size <= 2) {
-        processList[position].isSelected = value;
-        if (!value) {
-          auxMemoryList.removeWhere(
-            (process) => process.size == processList[position].size,
+      processList[position].isSelected = value;
+      if (!value) {
+        auxMemoryList.removeWhere(
+          (process) => process.size == processList[position].size,
+        );
+      } else {
+        if (auxMemoryList.length < 18) {
+          auxMemoryList.add(
+            processList[position],
           );
         } else {
-          if (auxMemoryList.length < 8) {
-            auxMemoryList.add(
-              processList[position],
-            );
-          } else {
-            processList[position].isSelected = false;
-            Alert(
-              context: context,
-              type: AlertType.error,
-              title: 'Memoria insuficiente',
-              desc: 'El proceso no se puede agregar porque no hay más memoria.',
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  width: 120,
-                )
-              ],
-            ).show();
-          }
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'Memoria insuficiente',
+            desc: 'El proceso no se puede agregar porque no hay más memoria.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
         }
-      } else {
-        Alert(
-          context: context,
-          type: AlertType.error,
-          title: 'No se puede agregar el proceso',
-          desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
-          buttons: [
-            DialogButton(
-              child: Text(
-                'Ok',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              width: 120,
-            )
-          ],
-        ).show();
       }
     });
   }
@@ -611,13 +595,34 @@ void setFalseProcess(){
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
               color: Palette.darkBlue,
             ),
             color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: auxMemoryList.length,
+            itemBuilder: (context, position) {
+              return DynamicPartitionContainer(
+                process: auxMemoryList[position],
+                withCompaction: true,
+              );
+            },
           ),
         ),
       ],
@@ -695,6 +700,7 @@ void setFalseProcess(){
             itemBuilder: (context, position) {
               return DynamicPartitionContainer(
                 process: auxMemoryList[position],
+                withCompaction: false,
               );
             },
           ),
