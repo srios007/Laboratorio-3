@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   bool button6Bool = false;
   bool isNotEmpty = false;
 
-
   _scrollListener() {
     setState(() {
       // _scrollPosition = _scrollController.position.pixels;
@@ -264,6 +263,9 @@ class _HomePageState extends State<HomePage> {
 
   // ignore: missing_return
   bool getIsDeleted() {
+    setState(() {
+       isNotEmpty = false;
+    });
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
         setState(() {
@@ -272,13 +274,10 @@ class _HomePageState extends State<HomePage> {
             (process) => process.isDeleted,
           );
         });
-
         return isNotEmpty;
       }
     });
   }
-
-
 
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
@@ -299,6 +298,7 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              print('AGREGÓ');
               auxMemoryList.forEach((element) {
                 print('${element.name}: ${element.isDeleted}\n\n');
               });
@@ -312,6 +312,7 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              print('AGREGÓ');
               auxMemoryList.forEach((element) {
                 print('${element.name}: ${element.isDeleted}\n\n');
               });
@@ -363,8 +364,16 @@ class _HomePageState extends State<HomePage> {
         if (index == auxMemoryList.length - 1) {
           auxMemoryList.removeWhere(
               (process) => process.size == processList[position].size);
+          print('ELIMINÓ');
+          auxMemoryList.forEach((element) {
+            print('${element.name}: ${element.isDeleted}\n\n');
+          });
         } else {
           auxMemoryList[index].isDeleted = true;
+          print('ELIMINÓ');
+          auxMemoryList.forEach((element) {
+            print('${element.name}: ${element.isDeleted}\n\n');
+          });
         }
       }
     });
