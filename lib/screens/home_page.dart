@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
   // ignore: missing_return
   bool getIsDeleted() {
     setState(() {
-       isNotEmpty = false;
+      isNotEmpty = false;
     });
     auxMemoryList.forEach((element) {
       if (element.isDeleted) {
@@ -286,7 +286,6 @@ class _HomePageState extends State<HomePage> {
         if (processList[position].size <= 2) {
           processList[position].isSelected = value;
           if (auxMemoryList.length < 8 || isNotEmpty) {
-            print('isNotEmpty: $isNotEmpty');
             if (isNotEmpty) {
               auxMemoryList.removeAt(index);
               auxMemoryList.insert(
@@ -298,10 +297,6 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
-              print('AGREGÓ');
-              auxMemoryList.forEach((element) {
-                print('${element.name}: ${element.isDeleted}\n\n');
-              });
               getIsDeleted();
             } else {
               auxMemoryList.add(
@@ -312,10 +307,6 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
-              print('AGREGÓ');
-              auxMemoryList.forEach((element) {
-                print('${element.name}: ${element.isDeleted}\n\n');
-              });
               getIsDeleted();
             }
           } else {
@@ -364,16 +355,8 @@ class _HomePageState extends State<HomePage> {
         if (index == auxMemoryList.length - 1) {
           auxMemoryList.removeWhere(
               (process) => process.size == processList[position].size);
-          print('ELIMINÓ');
-          auxMemoryList.forEach((element) {
-            print('${element.name}: ${element.isDeleted}\n\n');
-          });
         } else {
           auxMemoryList[index].isDeleted = true;
-          print('ELIMINÓ');
-          auxMemoryList.forEach((element) {
-            print('${element.name}: ${element.isDeleted}\n\n');
-          });
         }
       }
     });
@@ -526,7 +509,6 @@ class _HomePageState extends State<HomePage> {
 // Particiones dinámicas sin compactación
   void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
     setState(() {
-      print('-------------------');
       if (verifySpace() < 16.0) {
         dynamicWithoutCompactionList.add(
           Process(
