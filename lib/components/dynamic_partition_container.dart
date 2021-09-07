@@ -17,7 +17,9 @@ class DynamicPartitionContainer extends StatefulWidget {
 class _DynamicPartitionContainerState extends State<DynamicPartitionContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return widget.process.isDeleted
+        ? Container(height: (widget.process.size / 2) * 100)
+        :Container(
       height: (widget.process.size / 2) * 100,
       width: 500,
       decoration: BoxDecoration(

@@ -61,8 +61,6 @@ class _HomePageState extends State<HomePage> {
   ];
   int index = 0;
 
-  List<Process> dynamicWithoutCompactionList = [];
-  int dynamicPosition = 0;
   @override
   Widget build(BuildContext context) {
     // var screenSize = MediaQuery.of(context).size;
@@ -111,7 +109,8 @@ class _HomePageState extends State<HomePage> {
                                     if (button1Bool) {
                                       staticPartitionFuntion(position, value);
                                     } else if (button2Bool) {
-                                      variableStaticPartitionFuntion();
+                                      variableStaticPartitionFuntion(
+                                          position, value);
                                     } else if (button3Bool) {
                                       dynamicCompactionPartitionFuntion(
                                           position, value);
@@ -139,12 +138,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button1Bool) {
+                                      auxMemoryList.clear();
                                       button1Bool = true;
                                       button2Bool = false;
                                       button3Bool = false;
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -155,12 +156,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button2Bool) {
+                                      auxMemoryList.clear();
                                       button2Bool = true;
                                       button1Bool = false;
                                       button3Bool = false;
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -171,12 +174,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button3Bool) {
+                                      auxMemoryList.clear();
                                       button3Bool = true;
                                       button2Bool = false;
                                       button1Bool = false;
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -187,12 +192,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button4Bool) {
+                                      auxMemoryList.clear();
                                       button4Bool = true;
                                       button2Bool = false;
                                       button3Bool = false;
                                       button1Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -203,12 +210,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button5Bool) {
+                                      auxMemoryList.clear();
                                       button5Bool = true;
                                       button2Bool = false;
                                       button3Bool = false;
                                       button4Bool = false;
                                       button1Bool = false;
                                       button6Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -219,12 +228,14 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   setState(() {
                                     if (!button6Bool) {
+                                      auxMemoryList.clear();
                                       button6Bool = true;
                                       button2Bool = false;
                                       button3Bool = false;
                                       button4Bool = false;
                                       button5Bool = false;
                                       button1Bool = false;
+                                      setFalseProcess();
                                     }
                                   });
                                 },
@@ -258,7 +269,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
+void setFalseProcess(){
+  setState(() {
+    processList.forEach((element) { 
+      element.isSelected = false;
+    });
+  });
+}
 // Particiones estáticas fijas
 
   // ignore: missing_return
@@ -413,20 +430,121 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Particiones estáticas variables
-  void variableStaticPartitionFuntion() {}
+  void variableStaticPartitionFuntion(int position, bool value) {
+    setState(() {
+      getIsDeleted();
+      if (value) {
+        if (processList[position].size <= 2) {
+          processList[position].isSelected = value;
+          if (auxMemoryList.length < 8 || isNotEmpty) {
+            if (isNotEmpty) {
+              auxMemoryList.removeAt(index);
+              auxMemoryList.insert(
+                index,
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                ),
+              );
+              getIsDeleted();
+            } else {
+              auxMemoryList.add(
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                ),
+              );
+              getIsDeleted();
+            }
+          } else {
+            processList[position].isSelected = false;
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: 'Memoria insuficiente',
+              desc: 'El proceso no se puede agregar porque no hay más memoria.',
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Palette.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
+          }
+        } else {
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'No se puede agregar el proceso',
+            desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Palette.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
+        }
+      } else {
+        processList[position].isSelected = false;
+        int index = auxMemoryList.indexWhere(
+          (process) => process.size == processList[position].size,
+        );
+        if (index == auxMemoryList.length - 1) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
+        } else {
+          auxMemoryList[index].isDeleted = true;
+        }
+      }
+    });
+  }
 
   Widget variableStaticPartitionContainer() {
     return Stack(
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
               color: Palette.darkBlue,
             ),
             color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: auxMemoryList.length,
+            itemBuilder: (context, position) {
+              return DynamicPartitionContainer(
+                process: auxMemoryList[position],
+              );
+            },
           ),
         ),
       ],
@@ -510,7 +628,7 @@ class _HomePageState extends State<HomePage> {
   void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
     setState(() {
       if (verifySpace() < 16.0) {
-        dynamicWithoutCompactionList.add(
+        auxMemoryList.add(
           Process(
             isSelected: processList[position].isSelected,
             isDeleted: processList[position].isDeleted,
@@ -541,7 +659,7 @@ class _HomePageState extends State<HomePage> {
 
   double verifySpace() {
     double aux = 0;
-    dynamicWithoutCompactionList.forEach((element) {
+    auxMemoryList.forEach((element) {
       aux += element.size;
     });
     return aux;
@@ -573,10 +691,10 @@ class _HomePageState extends State<HomePage> {
           ),
           child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemCount: dynamicWithoutCompactionList.length,
+            itemCount: auxMemoryList.length,
             itemBuilder: (context, position) {
               return DynamicPartitionContainer(
-                process: dynamicWithoutCompactionList[position],
+                process: auxMemoryList[position],
               );
             },
           ),
