@@ -276,6 +276,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       processList.forEach((element) {
         element.isSelected = false;
+        element.isDeleted = false;
       });
     });
   }
@@ -439,13 +440,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       findSpaceBool = false;
     });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos 
     auxMemoryList.forEach((process) {
       if (processList[position].size <= process.size && process.isDeleted) {
         setState(() {
           findSpaceBool = true;
+          print('Posición f f: $index');
+          
           index = auxMemoryList.indexWhere(
-            (process2) => process2.size == processList[position].size,
+            (process2) => processList[position].size <= process.size && process.isDeleted,
           );
+          print('Posición: $index');
         });
         return isNotEmpty;
       }
