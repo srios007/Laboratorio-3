@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   bool button5Bool = false;
   bool button6Bool = false;
   bool isNotEmpty = false;
-  bool aux = false;
+
 
   _scrollListener() {
     setState(() {
@@ -278,19 +278,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void getPrueba() {
-    auxMemoryList.forEach((element) {
-      if (element.isDeleted) {
-        setState(() {
-          aux = true;
-        });
-      } else {
-        setState(() {
-          aux = false;
-        });
-      }
-    });
-  }
+
 
   void staticPartitionFuntion(int position, bool value) {
     setState(() {
@@ -299,7 +287,6 @@ class _HomePageState extends State<HomePage> {
         if (processList[position].size <= 2) {
           processList[position].isSelected = value;
           if (auxMemoryList.length < 8 || isNotEmpty) {
-            getPrueba();
             print('isNotEmpty: $isNotEmpty');
             if (isNotEmpty) {
               auxMemoryList.removeAt(index);
