@@ -9,10 +9,9 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-
+  
   bool button1Bool = true;
   bool button2Bool = false;
   bool button3Bool = false;
