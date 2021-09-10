@@ -12,8 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-  // double _scrollPosition = 0;
-  // double _opacity = 0;
 
   bool button1Bool = true;
   bool button2Bool = false;
@@ -24,16 +22,9 @@ class _HomePageState extends State<HomePage> {
   bool isNotEmpty = false;
   bool findSpaceBool = false;
 
-  _scrollListener() {
-    setState(() {
-      // _scrollPosition = _scrollController.position.pixels;
-    });
-  }
-
   @override
   void initState() {
     _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
     super.initState();
   }
 
@@ -49,26 +40,21 @@ class _HomePageState extends State<HomePage> {
   ];
   List<Process> auxMemoryList = [];
   List<Process> processList = [
-    Process(isSelected: false, name: 'Proceso1', size: 0.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso2', size: 0.4, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso3', size: 0.6, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso4', size: 0.8, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso5', size: 1, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso6', size: 1.2, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso7', size: 3, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso8', size: 1.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso9', size: 1.7, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso10', size: 1.9, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 1', size: 0.5, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 2', size: 0.4, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 3', size: 0.6, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 4', size: 0.8, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 5', size: 1, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 6', size: 1.2, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 7', size: 3, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 8', size: 1.5, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 9', size: 1.7, isDeleted: false),
+    Process(isSelected: false, name: 'Proceso 10', size: 1.9, isDeleted: false),
   ];
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
-    // var screenSize = MediaQuery.of(context).size;
-    // _opacity = _scrollPosition < screenSize.height * 0.40
-    //     ? _scrollPosition / (screenSize.height * 0.40)
-    //     : 1;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
