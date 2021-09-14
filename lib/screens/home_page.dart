@@ -52,24 +52,24 @@ class _HomePageState extends State<HomePage> {
     PartitionContainer(height: 50),
   ];
   List<Process> auxMemoryList = [];
-  
+
   List<Process> auxPaginationList = [
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'pa', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'ps', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
-    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
+    Process(isSelected: true, isDeleted: true, name: '', size: 1),
   ];
   List<Process> processList = [
     Process(isSelected: false, name: 'Proceso 1', size: 0.5, isDeleted: false),
@@ -823,8 +823,134 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Paginación
+  bool getIsDeletedPagination() {
+    setState(() {
+      isNotEmpty = false;
+    });
+    auxPaginationList.forEach((element) {
+      if (element.isDeleted) {
+        setState(() {
+          isNotEmpty = true;
+          index = auxPaginationList.indexWhere(
+            (process) => process.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  bool findSpacePagination(int position) {
+    setState(() {
+      findSpaceBool = false;
+    });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos
+    auxPaginationList.forEach((process) {
+      if (process.isDeleted) {
+        setState(() {
+          findSpaceBool = true;
+          index = auxPaginationList.indexWhere(
+            (process2) => process2.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
   void paginationFuntion(int position, bool value) {
-    print(totalMemory.toStringAsFixed(0));
+    setState(() {
+      findSpacePagination(position);
+      if (value) {
+        processList[position].isSelected = value;
+        if (findSpaceBool) {
+          int aux = processList[position].size < 0.5
+              ? 1
+              : int.parse(processList[position].size.toStringAsFixed(0));
+
+          if (processList[position].size % aux == 0) {
+            for (int i = 0; i < aux; i++) {
+              auxPaginationList.removeAt(index);
+              auxPaginationList.insert(
+                index,
+                Process(
+                    isSelected: true,
+                    isDeleted: false,
+                    name: processList[position].name,
+                    size: processList[position].size,
+                    id: '${processList[position].size + i}'),
+              );
+              getIsDeletedPagination();
+            }
+          } else {
+            if (int.parse(processList[position]
+                        .size
+                        .toStringAsFixed(1)
+                        .toString()
+                        .replaceAll('.', '')
+                        .substring(1)) <
+                    5 &&
+                (processList[position].size) > 1) {
+              for (int i = 0; (i + 1) <= aux + 1; i++) {
+                auxPaginationList.removeAt(index);
+                auxPaginationList.insert(
+                  index,
+                  Process(
+                    isSelected: true,
+                    isDeleted: false,
+                    name: processList[position].name,
+                    size: processList[position].size,
+                  ),
+                );
+                getIsDeletedPagination();
+              }
+            } else {
+              for (int i = 0; (i + 1) <= aux; i++) {
+                auxPaginationList.removeAt(index);
+                auxPaginationList.insert(
+                  index,
+                  Process(
+                    isSelected: true,
+                    isDeleted: false,
+                    name: processList[position].name,
+                    size: processList[position].size,
+                  ),
+                );
+                getIsDeletedPagination();
+              }
+            }
+          }
+        } else {
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'Memoria insuficiente',
+            desc: 'El proceso no se puede agregar porque no hay más memoria.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Palette.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
+        }
+      } else {
+        processList[position].isSelected = false;
+        setState(() {
+          auxPaginationList.forEach((element) {
+            if (processList[position].size == element.size) {
+              element.isDeleted = true;
+            }
+          });
+        });
+      }
+    });
   }
 
   Widget paginationContainer() {

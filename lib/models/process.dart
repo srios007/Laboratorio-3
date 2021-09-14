@@ -1,5 +1,5 @@
 class Process {
-  int id;
+  String id;
   bool isSelected;  
   String name;  
   double size;

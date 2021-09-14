@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/models/models.dart';
 
@@ -9,17 +10,24 @@ class PaginationContainer extends StatefulWidget {
   Process process;
 
   @override
-  _PaginationContainerState createState() =>
-      _PaginationContainerState();
+  _PaginationContainerState createState() => _PaginationContainerState();
 }
 
 class _PaginationContainerState extends State<PaginationContainer> {
   @override
   Widget build(BuildContext context) {
     return widget.process.isDeleted
-        ? Container(height: 50)
+        ? Container(
+            height:  50,
+          )
         : Container(
-            height: (widget.process.size / 2) * 100,
+            margin: EdgeInsets.only(
+                bottom: widget.process.size <= 1
+                    ? 50 - ((widget.process.size / 2) * 100)
+                    : 0,),
+            height: widget.process.size <= 1
+                ? ((widget.process.size / 2) * 100)
+                :50,
             width: 500,
             decoration: BoxDecoration(
               border: Border.all(
