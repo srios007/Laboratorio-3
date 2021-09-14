@@ -878,7 +878,7 @@ class _HomePageState extends State<HomePage> {
                     isSelected: true,
                     isDeleted: false,
                     name: processList[position].name,
-                    size: processList[position].size,
+                    size: 1,
                     id: '${processList[position].size + i}'),
               );
               getIsDeletedPagination();
@@ -900,7 +900,15 @@ class _HomePageState extends State<HomePage> {
                     isSelected: true,
                     isDeleted: false,
                     name: processList[position].name,
-                    size: processList[position].size,
+                    size: i  == aux 
+                        ? int.parse(processList[position]
+                                .size
+                                .toStringAsFixed(1)
+                                .toString()
+                                .replaceAll('.', '')
+                                .substring(1)) /
+                            10
+                        : 1,
                   ),
                 );
                 getIsDeletedPagination();
@@ -914,7 +922,15 @@ class _HomePageState extends State<HomePage> {
                     isSelected: true,
                     isDeleted: false,
                     name: processList[position].name,
-                    size: processList[position].size,
+                    size: i + 1 == aux 
+                        ? int.parse(processList[position]
+                                .size
+                                .toStringAsFixed(1)
+                                .toString()
+                                .replaceAll('.', '')
+                                .substring(1)) /
+                            10
+                        : 1,
                   ),
                 );
                 getIsDeletedPagination();
@@ -944,7 +960,7 @@ class _HomePageState extends State<HomePage> {
         processList[position].isSelected = false;
         setState(() {
           auxPaginationList.forEach((element) {
-            if (processList[position].size == element.size) {
+            if (processList[position].name == element.name) {
               element.isDeleted = true;
             }
           });
