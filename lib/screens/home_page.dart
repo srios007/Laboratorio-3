@@ -52,6 +52,25 @@ class _HomePageState extends State<HomePage> {
     PartitionContainer(height: 50),
   ];
   List<Process> auxMemoryList = [];
+  
+  List<Process> auxPaginationList = [
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'pa', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'ps', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+    Process(isSelected: true, isDeleted: false, name: 'p', size: 1),
+  ];
   List<Process> processList = [
     Process(isSelected: false, name: 'Proceso 1', size: 0.5, isDeleted: false),
     Process(isSelected: false, name: 'Proceso 2', size: 0.4, isDeleted: false),
@@ -804,7 +823,9 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Paginación
-  void paginationFuntion(int position, bool value) {}
+  void paginationFuntion(int position, bool value) {
+    print(totalMemory.toStringAsFixed(0));
+  }
 
   Widget paginationContainer() {
     return Stack(
@@ -844,10 +865,10 @@ class _HomePageState extends State<HomePage> {
           ),
           child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemCount: auxMemoryList.length,
+            itemCount: auxPaginationList.length,
             itemBuilder: (context, position) {
-              return StaticPartitionContainer(
-                process: auxMemoryList[position],
+              return PaginationContainer(
+                process: auxPaginationList[position],
               );
             },
           ),
