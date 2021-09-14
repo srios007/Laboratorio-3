@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:laboratorio_3/config/config.dart';
 
 class PartitionContainer extends StatefulWidget {
   double height;
   double width;
+  PartitionContainer({
+    this.height,
+    this.width,
+  });
   @override
   _PartitionContainerState createState() => _PartitionContainerState();
 }

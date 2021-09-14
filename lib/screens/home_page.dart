@@ -13,12 +13,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
 
-  bool button1Bool = true;
+  bool button1Bool = false;
   bool button2Bool = false;
   bool button3Bool = false;
   bool button4Bool = false;
   bool button5Bool = false;
-  bool button6Bool = false;
+  bool button6Bool = true;
   bool isNotEmpty = false;
   bool findSpaceBool = false;
   bool canAdd = false;
@@ -32,6 +32,24 @@ class _HomePageState extends State<HomePage> {
     PartitionContainer(),
     PartitionContainer(),
     PartitionContainer(),
+  ];
+  List<Widget> partitionMemoryList = [
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
+    PartitionContainer(height: 50),
   ];
   List<Process> auxMemoryList = [];
   List<Process> processList = [
@@ -113,7 +131,10 @@ class _HomePageState extends State<HomePage> {
                                         value,
                                       );
                                     } else if (button6Bool) {
-                                      paginationFuntion();
+                                      paginationFuntion(
+                                        position,
+                                        value,
+                                      );
                                     }
                                   },
                                 );
@@ -783,20 +804,52 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Paginación
-  void paginationFuntion() {}
+  void paginationFuntion(int position, bool value) {}
 
   Widget paginationContainer() {
     return Stack(
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
               color: Palette.darkBlue,
             ),
             color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: partitionMemoryList.length,
+            itemBuilder: (context, position) {
+              return partitionMemoryList[position];
+            },
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: auxMemoryList.length,
+            itemBuilder: (context, position) {
+              return StaticPartitionContainer(
+                process: auxMemoryList[position],
+              );
+            },
           ),
         ),
       ],
