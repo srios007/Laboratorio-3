@@ -13,11 +13,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
 
-  bool button1Bool = false;
+  bool button1Bool = true;
   bool button2Bool = false;
   bool button3Bool = false;
   bool button4Bool = false;
-  bool button5Bool = true;
+  bool button5Bool = false;
   bool button6Bool = false;
   bool isNotEmpty = false;
   bool findSpaceBool = false;
@@ -637,6 +637,8 @@ class _HomePageState extends State<HomePage> {
         processList[position].isSelected = value;
         if (auxMemoryList.length < 8 || findSpaceBool) {
           if (findSpaceBool) {
+            double aux = auxMemoryList[index].size;
+
             auxMemoryList.removeAt(index);
             auxMemoryList.insert(
               index,
@@ -644,6 +646,7 @@ class _HomePageState extends State<HomePage> {
                 isSelected: true,
                 isDeleted: false,
                 name: processList[position].name,
+                space: aux - processList[position].size,
                 size: processList[position].size,
               ),
             );
@@ -655,6 +658,7 @@ class _HomePageState extends State<HomePage> {
                 isDeleted: false,
                 name: processList[position].name,
                 size: processList[position].size,
+                space: 0,
               ),
             );
             getIsDeleted();
@@ -721,9 +725,8 @@ class _HomePageState extends State<HomePage> {
             physics: NeverScrollableScrollPhysics(),
             itemCount: auxMemoryList.length,
             itemBuilder: (context, position) {
-              return DynamicPartitionContainer(
+              return CompactationContainer(
                 process: auxMemoryList[position],
-                withCompaction: false,
               );
             },
           ),
