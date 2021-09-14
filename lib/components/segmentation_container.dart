@@ -18,7 +18,9 @@ class _SegmentationContainerWidgetState extends State<SegmentationContainerWidge
   Widget build(BuildContext context) {
     return widget.process.isDeleted
         ? Container(
-            height:  50,
+            height:  widget.process.size >= 0.5
+                ? ((widget.process.size / 2) * 100)
+                :25,
           )
         : Container(
             // margin: EdgeInsets.only(

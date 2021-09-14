@@ -370,10 +370,8 @@ class _HomePageState extends State<HomePage> {
                                       button6Bool = false;
                                       setFalsePagination();
                                       setFalseProcess();
-                                      setState(() {
-                                        processList[0].isSelected = true;
-                                        processList[1].isSelected = true;
-                                      });
+
+                                      setInitialValues();
                                     }
                                   });
                                 },
@@ -926,6 +924,54 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Segmentación
+  void setInitialValues() {
+    setState(() {
+      processList[0].isSelected = true;
+      processList[1].isSelected = true;
+      auxSegmentationList.clear();
+      auxSegmentationList.add(
+        Process(
+            isSelected: true,
+            isDeleted: false,
+            name: 'Segmento Proceso 1',
+            size: 0.2,
+            id: '1'),
+      );
+      auxSegmentationList.add(
+        Process(
+            isSelected: true,
+            isDeleted: false,
+            name: 'Segmento Proceso 2',
+            size: 0.1,
+            id: '1'),
+      );
+      auxSegmentationList.add(
+        Process(
+            isSelected: true,
+            isDeleted: false,
+            name: 'Segmento Proceso 1',
+            size: 0.2,
+            id: '1'),
+      );
+      auxSegmentationList.add(
+        Process(
+            isSelected: true,
+            isDeleted: false,
+            name: 'Segmento Proceso 2',
+            size: 0.1,
+            id: '1'),
+      );
+      auxSegmentationList.add(
+        Process(
+            isSelected: true,
+            isDeleted: false,
+            name: 'Segmento Proceso 1 y Proceso 2',
+            size: 0.3,
+            id: '1 2'),
+      );
+    });
+  }
+
   bool getIsDeletedSegmentation() {
     setState(() {
       isNotEmpty = false;
@@ -972,41 +1018,21 @@ class _HomePageState extends State<HomePage> {
               ? 1
               : int.parse(processList[position].size.toStringAsFixed(0));
 
-          if (processList[position].size % aux == 0) {
-            for (int i = 0; i < aux; i++) {
+          {
+            for (int i = 0; i < 3; i++) {
               auxSegmentationList.removeAt(index);
               auxSegmentationList.insert(
                 index,
                 Process(
-                  isSelected: true,
-                  isDeleted: false,
-                  name: processList[position].name,
-                  size: 1,
-                  id: processList[position].id,
-                ),
-              );
-              getIsDeletedSegmentation();
-            }
-          } else {
-            for (int i = 0; (i + 1) <= aux; i++) {
-              auxSegmentationList.removeAt(index);
-              auxSegmentationList.insert(
-                index,
-                Process(
-                  id: processList[position].id,
-                  isSelected: true,
-                  isDeleted: false,
-                  name: processList[position].name,
-                  size: i + 1 == aux
-                      ? int.parse(processList[position]
-                              .size
-                              .toStringAsFixed(1)
-                              .toString()
-                              .replaceAll('.', '')
-                              .substring(1)) /
-                          10
-                      : 1,
-                ),
+                    id: processList[position].id,
+                    isSelected: true,
+                    isDeleted: false,
+                    name: 'Segmento ${processList[position].name}',
+                    size: i == 0
+                        ? processList[position].codeSize
+                        : i == 1
+                            ? processList[position].dataSize
+                            : processList[position].stackSize),
               );
               getIsDeletedSegmentation();
             }
