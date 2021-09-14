@@ -23,12 +23,12 @@ class _DynamicPartitionContainerState extends State<DynamicPartitionContainer> {
         ? Container(
             height: widget.withCompaction ? 0 : (widget.process.size / 2) * 100)
         : Container(
-          margin: EdgeInsets.only(
-              bottom: widget.process.size < 0.4
-                ? 25:widget.process.size <= 1
-                  ? 50 - ((widget.process.size / 2) * 100)
-                  : 0,
-            ),
+          // margin: EdgeInsets.only(
+          //     bottom: widget.process.size < 0.4
+          //       ? 25:widget.process.size <= 1
+          //         ? 50 - ((widget.process.space??0 / 2) * 100)
+          //         : 0,
+            // ),
             height: (widget.process.size / 2) * 100,
             width: 500,
             decoration: BoxDecoration(

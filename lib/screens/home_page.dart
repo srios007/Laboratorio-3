@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
     PartitionContainer(height: 50),
     PartitionContainer(height: 50),
   ];
-  List<Process> auxMemoryList = [];
 
   List<Process> processList = [
     Process(
@@ -145,6 +144,8 @@ class _HomePageState extends State<HomePage> {
         stackSize: 0.3,
         id: '10'),
   ];
+  
+  List<Process> auxMemoryList = [];
 
   List<Process> auxSegmentationList = [
     Process(
@@ -197,6 +198,7 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
   ];
+  
   int index = 0;
   double totalMemory = 0;
 
