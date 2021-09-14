@@ -21,12 +21,7 @@ class _HomePageState extends State<HomePage> {
   bool button6Bool = false;
   bool isNotEmpty = false;
   bool findSpaceBool = false;
-
-  @override
-  void initState() {
-    _scrollController = ScrollController();
-    super.initState();
-  }
+  bool canAdd = false;
 
   List<Widget> memoryList = [
     PartitionContainer(),
@@ -52,6 +47,13 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: false, name: 'Proceso 10', size: 1.9, isDeleted: false),
   ];
   int index = 0;
+  double totalMemory = 0;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -430,18 +432,13 @@ class _HomePageState extends State<HomePage> {
     // izquierda: Lista gráfica de procesos
     auxMemoryList.forEach((process) {
       if (processList[position].size <= process.size && process.isDeleted) {
-        print(process.name);
-        print(processList[position].name);
         setState(() {
           findSpaceBool = true;
-
           index = auxMemoryList.indexWhere(
             (process2) =>
                 process2.size >= processList[position].size &&
                 process2.isDeleted,
           );
-        print('index: $index');
-
         });
         return isNotEmpty;
       }
@@ -626,44 +623,100 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Particiones dinámicas sin compactación
-  void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
+
+  void setTotalMemory(position) {
     setState(() {
-      if (verifySpace() < 16.0) {
-        auxMemoryList.add(
-          Process(
-            isSelected: processList[position].isSelected,
-            isDeleted: processList[position].isDeleted,
-            name: processList[position].name,
-            size: processList[position].size,
-          ),
-        );
-      } else {
-        Alert(
-          context: context,
-          type: AlertType.error,
-          title: 'Memoria insuficiente',
-          desc: 'El proceso no se puede agregar porque no hay más memoria.',
-          buttons: [
-            DialogButton(
-              child: Text(
-                'Ok',
-                style: TextStyle(color: Palette.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              width: 120,
-            )
-          ],
-        ).show();
+      totalMemory += processList[position].size;
+    });
+  }
+
+  void enoughSPace(int position) {
+    setState(() {
+      canAdd = true;
+    });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos
+    auxMemoryList.forEach((process) {
+      if (processList[position].size <= process.size && process.isDeleted) {
+        setState(() {
+          canAdd = false;
+          index = auxMemoryList.indexWhere(
+            (process2) =>
+                process2.size >= processList[position].size &&
+                process2.isDeleted,
+          );
+        });
+        return isNotEmpty;
       }
     });
   }
 
-  double verifySpace() {
-    double aux = 0;
-    auxMemoryList.forEach((element) {
-      aux += element.size;
+  void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
+    enoughSPace(position);
+    setTotalMemory(position);
+    setState(() {
+      findSpace(position);
+      if (value) {
+        processList[position].isSelected = value;
+        if (totalMemory < 16) {
+          if (findSpaceBool) {
+            auxMemoryList.removeAt(index);
+            auxMemoryList.insert(
+              index,
+              Process(
+                isSelected: true,
+                isDeleted: false,
+                name: processList[position].name,
+                size: processList[position].size,
+              ),
+            );
+            getIsDeleted();
+          } else {
+            auxMemoryList.add(
+              Process(
+                isSelected: true,
+                isDeleted: false,
+                name: processList[position].name,
+                size: processList[position].size,
+              ),
+            );
+            getIsDeleted();
+          }
+        } else {
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'Memoria insuficiente',
+            desc: 'El proceso no se puede agregar porque no hay más memoria.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Palette.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
+        }
+      } else {
+        processList[position].isSelected = false;
+        int index = auxMemoryList.indexWhere(
+          (process) => process.size == processList[position].size,
+        );
+        if (index == auxMemoryList.length - 1) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
+        } else {
+          auxMemoryList[index].isDeleted = true;
+        }
+        setState(() {
+          totalMemory -= processList[position].size;
+        });
+      }
     });
-    return aux;
   }
 
   Widget dynamicPartitionWithoutCompactionContainer() {
