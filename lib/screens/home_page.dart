@@ -17,8 +17,8 @@ class _HomePageState extends State<HomePage> {
   bool button2Bool = false;
   bool button3Bool = false;
   bool button4Bool = false;
-  bool button5Bool = false;
-  bool button6Bool = true;
+  bool button5Bool = true;
+  bool button6Bool = false;
   bool isNotEmpty = false;
   bool findSpaceBool = false;
   bool canAdd = false;
@@ -53,6 +53,132 @@ class _HomePageState extends State<HomePage> {
   ];
   List<Process> auxMemoryList = [];
 
+  List<Process> processList = [
+    Process(
+        isSelected: false,
+        name: 'Proceso 1',
+        size: 0.5,
+        isDeleted: false,
+        codeSize: 0.2,
+        dataSize: 0.2,
+        stackSize: 0.1,
+        id: '1'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 2',
+        size: 0.4,
+        isDeleted: false,
+        codeSize: 0.1,
+        dataSize: 0.1,
+        stackSize: 0.2,
+        id: '2'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 3',
+        size: 0.6,
+        isDeleted: false,
+        codeSize: 0.2,
+        dataSize: 0.2,
+        stackSize: 0.2,
+        id: '3'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 4',
+        size: 0.8,
+        isDeleted: false,
+        codeSize: 0.3,
+        dataSize: 0.3,
+        stackSize: 0.2,
+        id: '4'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 5',
+        size: 1,
+        isDeleted: false,
+        codeSize: 0.3,
+        dataSize: 0.3,
+        stackSize: 0.4,
+        id: '5'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 6',
+        size: 1.2,
+        isDeleted: false,
+        codeSize: 0.3,
+        dataSize: 0.5,
+        stackSize: 0.4,
+        id: '6'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 7',
+        size: 3,
+        isDeleted: false,
+        codeSize: 1,
+        dataSize: 1.5,
+        stackSize: 0.5,
+        id: '7'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 8',
+        size: 1.5,
+        isDeleted: false,
+        codeSize: 0.5,
+        dataSize: 0.5,
+        stackSize: 0.5,
+        id: '8'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 9',
+        size: 1.7,
+        isDeleted: false,
+        codeSize: 0.4,
+        dataSize: 0.3,
+        stackSize: 1,
+        id: '9'),
+    Process(
+        isSelected: false,
+        name: 'Proceso 10',
+        size: 1.9,
+        isDeleted: false,
+        codeSize: 1,
+        dataSize: 0.6,
+        stackSize: 0.3,
+        id: '10'),
+  ];
+
+  List<Process> auxSegmentationList = [
+    Process(
+        isSelected: true,
+        isDeleted: false,
+        name: 'Segmento Proceso 1',
+        size: 0.2,
+        id: '1'),
+    Process(
+        isSelected: true,
+        isDeleted: false,
+        name: 'Segmento Proceso 2',
+        size: 0.1,
+        id: '1'),
+    Process(
+        isSelected: true,
+        isDeleted: false,
+        name: 'Segmento Proceso 1',
+        size: 0.2,
+        id: '1'),
+    Process(
+        isSelected: true,
+        isDeleted: false,
+        name: 'Segmento Proceso 2',
+        size: 0.1,
+        id: '1'),
+    Process(
+        isSelected: true,
+        isDeleted: false,
+        name: 'Segmento Proceso 1 y Proceso 2',
+        size: 0.3,
+        id: '1 2'),
+  ];
+
   List<Process> auxPaginationList = [
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
@@ -70,18 +196,6 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
-  ];
-  List<Process> processList = [
-    Process(isSelected: false, name: 'Proceso 1', size: 0.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 2', size: 0.4, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 3', size: 0.6, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 4', size: 0.8, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 5', size: 1, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 6', size: 1.2, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 7', size: 3, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 8', size: 1.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 9', size: 1.7, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 10', size: 1.9, isDeleted: false),
   ];
   int index = 0;
   double totalMemory = 0;
@@ -178,6 +292,7 @@ class _HomePageState extends State<HomePage> {
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalsePagination();
                                       setFalseProcess();
                                     }
                                   });
@@ -196,6 +311,7 @@ class _HomePageState extends State<HomePage> {
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalsePagination();
                                       setFalseProcess();
                                     }
                                   });
@@ -214,6 +330,7 @@ class _HomePageState extends State<HomePage> {
                                       button4Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalsePagination();
                                       setFalseProcess();
                                     }
                                   });
@@ -232,6 +349,7 @@ class _HomePageState extends State<HomePage> {
                                       button1Bool = false;
                                       button5Bool = false;
                                       button6Bool = false;
+                                      setFalsePagination();
                                       setFalseProcess();
                                     }
                                   });
@@ -250,7 +368,12 @@ class _HomePageState extends State<HomePage> {
                                       button4Bool = false;
                                       button1Bool = false;
                                       button6Bool = false;
+                                      setFalsePagination();
                                       setFalseProcess();
+                                      setState(() {
+                                        processList[0].isSelected = true;
+                                        processList[1].isSelected = true;
+                                      });
                                     }
                                   });
                                 },
@@ -311,6 +434,7 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
+
 // Particiones estáticas fijas
 
   // ignore: missing_return
@@ -802,20 +926,171 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Segmentación
-  void segmentationFuntion(int position, bool value) {}
+  bool getIsDeletedSegmentation() {
+    setState(() {
+      isNotEmpty = false;
+    });
+    auxSegmentationList.forEach((element) {
+      if (element.isDeleted) {
+        setState(() {
+          isNotEmpty = true;
+          index = auxSegmentationList.indexWhere(
+            (process) => process.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  bool findSpaceSegmentation(int position) {
+    setState(() {
+      findSpaceBool = false;
+    });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos
+    auxSegmentationList.forEach((process) {
+      if (process.isDeleted) {
+        setState(() {
+          findSpaceBool = true;
+          index = auxSegmentationList.indexWhere(
+            (process2) => process2.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  void segmentationFuntion(int position, bool value) {
+    setState(() {
+      findSpaceSegmentation(position);
+      if (value) {
+        processList[position].isSelected = value;
+        if (findSpaceBool) {
+          int aux = processList[position].size < 0.5
+              ? 1
+              : int.parse(processList[position].size.toStringAsFixed(0));
+
+          if (processList[position].size % aux == 0) {
+            for (int i = 0; i < aux; i++) {
+              auxSegmentationList.removeAt(index);
+              auxSegmentationList.insert(
+                index,
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: 1,
+                  id: processList[position].id,
+                ),
+              );
+              getIsDeletedSegmentation();
+            }
+          } else {
+            for (int i = 0; (i + 1) <= aux; i++) {
+              auxSegmentationList.removeAt(index);
+              auxSegmentationList.insert(
+                index,
+                Process(
+                  id: processList[position].id,
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: i + 1 == aux
+                      ? int.parse(processList[position]
+                              .size
+                              .toStringAsFixed(1)
+                              .toString()
+                              .replaceAll('.', '')
+                              .substring(1)) /
+                          10
+                      : 1,
+                ),
+              );
+              getIsDeletedSegmentation();
+            }
+          }
+        } else {
+          for (int i = 0; i < 3; i++) {
+            auxSegmentationList.add(
+              Process(
+                  id: processList[position].id,
+                  isSelected: true,
+                  isDeleted: false,
+                  name: 'Segmento ${processList[position].name}',
+                  size: i == 0
+                      ? processList[position].codeSize
+                      : i == 1
+                          ? processList[position].dataSize
+                          : processList[position].stackSize),
+            );
+
+            getIsDeletedSegmentation();
+          }
+          // processList[position].isSelected = false;
+          // Alert(
+          //   context: context,
+          //   type: AlertType.error,
+          //   title: 'Memoria insuficiente',
+          //   desc: 'El proceso no se puede agregar porque no hay más memoria.',
+          //   buttons: [
+          //     DialogButton(
+          //       child: Text(
+          //         'Ok',
+          //         style: TextStyle(color: Palette.white, fontSize: 20),
+          //       ),
+          //       onPressed: () => Navigator.pop(context),
+          //       width: 120,
+          //     )
+          //   ],
+          // ).show();
+        }
+      } else {
+        processList[position].isSelected = false;
+        setState(() {
+          auxSegmentationList.forEach((element) {
+            if (element.id == processList[position].id) {
+              element.isDeleted = true;
+            }
+          });
+        });
+      }
+    });
+  }
 
   Widget segmentationContainer() {
     return Stack(
       children: [
         Container(
           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 802,
+          height: 800,
           width: 500,
           decoration: BoxDecoration(
             border: Border.all(
               color: Palette.darkBlue,
             ),
             color: Palette.lightBlue.withOpacity(0.3),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+          height: 800,
+          width: 500,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.darkBlue,
+            ),
+            color: Palette.lightBlue.withOpacity(0.3),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: auxSegmentationList.length,
+            itemBuilder: (context, position) {
+              return SegmentationContainerWidget(
+                process: auxSegmentationList[position],
+              );
+            },
           ),
         ),
       ],
@@ -900,7 +1175,7 @@ class _HomePageState extends State<HomePage> {
                     isSelected: true,
                     isDeleted: false,
                     name: processList[position].name,
-                    size: i  == aux 
+                    size: i == aux
                         ? int.parse(processList[position]
                                 .size
                                 .toStringAsFixed(1)
@@ -922,7 +1197,7 @@ class _HomePageState extends State<HomePage> {
                     isSelected: true,
                     isDeleted: false,
                     name: processList[position].name,
-                    size: i + 1 == aux 
+                    size: i + 1 == aux
                         ? int.parse(processList[position]
                                 .size
                                 .toStringAsFixed(1)
@@ -966,6 +1241,14 @@ class _HomePageState extends State<HomePage> {
           });
         });
       }
+    });
+  }
+
+  void setFalsePagination() {
+    setState(() {
+      auxPaginationList.forEach((element) {
+        element.isDeleted = true;
+      });
     });
   }
 

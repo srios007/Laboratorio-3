@@ -7,3 +7,4 @@ export 'partition_container.dart';
 export 'static_partition_container.dart';
 export 'dynamic_partition_container.dart';
 export 'pagination_container.dart';
+export 'segmentation_container.dart';
