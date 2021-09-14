@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'screens/home.dart';
 import 'screens/home_page.dart';
+import 'screens/static_partition/static_partition_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,10 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Laboratorio 3',
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+        title: 'Laboratorio 3',
+        debugShowCheckedModeBanner: false,
+        home: Home(),
+      
+        );
   }
 }
-

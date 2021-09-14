@@ -98,14 +98,15 @@ class _HomePageState extends State<HomePage> {
       space: 0,
     ),
     Process(
-        isSelected: false,
-        name: 'Proceso 5',
-        size: 1,
-        isDeleted: false,
-        codeSize: 0.3,
-        dataSize: 0.3,
-        stackSize: 0.4,
-        id: '5'),
+      isSelected: false,
+      name: 'Proceso 5',
+      size: 1,
+      isDeleted: false,
+      codeSize: 0.3,
+      dataSize: 0.3,
+      stackSize: 0.4,
+      id: '5',
+    ),
     Process(
       isSelected: false,
       name: 'Proceso 6',
@@ -491,6 +492,8 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              print(processList[position].size.round().toRadixString(16));
+
               getIsDeleted();
             } else {
               auxMemoryList.add(
@@ -501,6 +504,12 @@ class _HomePageState extends State<HomePage> {
                   size: processList[position].size,
                 ),
               );
+              int aux = (processList[position].size * 1048576).round();
+              print(aux);
+
+              print(
+                  '${processList[position].size}: 0x' + aux.toRadixString(16));
+
               getIsDeleted();
             }
           } else {

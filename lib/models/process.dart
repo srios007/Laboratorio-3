@@ -1,7 +1,7 @@
 class Process {
   String id;
-  bool isSelected;  
-  String name;  
+  bool isSelected;
+  String name;
   double size;
   double codeSize;
   double dataSize;
@@ -10,6 +10,7 @@ class Process {
   bool isShare;
   double space;
   double totalSize;
+  
   Process({
     this.id,
     this.isSelected,

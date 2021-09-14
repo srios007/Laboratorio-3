@@ -27,13 +27,17 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Container(
-          height: height ?? 40,
-          width: width ?? 300,
+          height: height ?? 100,
+          width: width ?? 350,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: isActive ? Palette.normalBlue : Palette.grey,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: Palette.lightBlue,
+              width: 3
+            ),
+            color: Palette.white,
           ),
           child: CupertinoButton(
             padding: padding ?? EdgeInsets.zero,
@@ -42,8 +46,8 @@ class CustomButton extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Palette.white,
-                  fontWeight: FontWeight.w400,
+                  color: Palette.black,
+                  fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
