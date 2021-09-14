@@ -108,7 +108,10 @@ class _HomePageState extends State<HomePage> {
                                       dynamicPartitionWithoutCompactionFuntion(
                                           position, value);
                                     } else if (button5Bool) {
-                                      segmentationFuntion();
+                                      segmentationFuntion(
+                                        position,
+                                        value,
+                                      );
                                     } else if (button6Bool) {
                                       paginationFuntion();
                                     }
@@ -759,7 +762,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 // Segmentación
-  void segmentationFuntion() {}
+  void segmentationFuntion(int position, bool value) {}
 
   Widget segmentationContainer() {
     return Stack(
