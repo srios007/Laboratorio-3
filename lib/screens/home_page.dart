@@ -54,41 +54,49 @@ class _HomePageState extends State<HomePage> {
 
   List<Process> processList = [
     Process(
-        isSelected: false,
-        name: 'Proceso 1',
-        size: 0.5,
-        isDeleted: false,
-        codeSize: 0.2,
-        dataSize: 0.2,
-        stackSize: 0.1,
-        id: '1'),
+      isSelected: false,
+      name: 'Proceso 1',
+      size: 0.5,
+      isDeleted: false,
+      codeSize: 0.2,
+      dataSize: 0.2,
+      stackSize: 0.1,
+      id: '1',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 2',
-        size: 0.4,
-        isDeleted: false,
-        codeSize: 0.1,
-        dataSize: 0.1,
-        stackSize: 0.2,
-        id: '2'),
+      isSelected: false,
+      name: 'Proceso 2',
+      size: 0.4,
+      isDeleted: false,
+      codeSize: 0.1,
+      dataSize: 0.1,
+      stackSize: 0.2,
+      id: '2',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 3',
-        size: 0.6,
-        isDeleted: false,
-        codeSize: 0.2,
-        dataSize: 0.2,
-        stackSize: 0.2,
-        id: '3'),
+      isSelected: false,
+      name: 'Proceso 3',
+      size: 0.6,
+      isDeleted: false,
+      codeSize: 0.2,
+      dataSize: 0.2,
+      stackSize: 0.2,
+      id: '3',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 4',
-        size: 0.8,
-        isDeleted: false,
-        codeSize: 0.3,
-        dataSize: 0.3,
-        stackSize: 0.2,
-        id: '4'),
+      isSelected: false,
+      name: 'Proceso 4',
+      size: 0.8,
+      isDeleted: false,
+      codeSize: 0.3,
+      dataSize: 0.3,
+      stackSize: 0.2,
+      id: '4',
+      space: 0,
+    ),
     Process(
         isSelected: false,
         name: 'Proceso 5',
@@ -99,52 +107,62 @@ class _HomePageState extends State<HomePage> {
         stackSize: 0.4,
         id: '5'),
     Process(
-        isSelected: false,
-        name: 'Proceso 6',
-        size: 1.2,
-        isDeleted: false,
-        codeSize: 0.3,
-        dataSize: 0.5,
-        stackSize: 0.4,
-        id: '6'),
+      isSelected: false,
+      name: 'Proceso 6',
+      size: 1.2,
+      isDeleted: false,
+      codeSize: 0.3,
+      dataSize: 0.5,
+      stackSize: 0.4,
+      id: '6',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 7',
-        size: 3,
-        isDeleted: false,
-        codeSize: 1,
-        dataSize: 1.5,
-        stackSize: 0.5,
-        id: '7'),
+      isSelected: false,
+      name: 'Proceso 7',
+      size: 3,
+      isDeleted: false,
+      codeSize: 1,
+      dataSize: 1.5,
+      stackSize: 0.5,
+      id: '7',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 8',
-        size: 1.5,
-        isDeleted: false,
-        codeSize: 0.5,
-        dataSize: 0.5,
-        stackSize: 0.5,
-        id: '8'),
+      isSelected: false,
+      name: 'Proceso 8',
+      size: 1.5,
+      isDeleted: false,
+      codeSize: 0.5,
+      dataSize: 0.5,
+      stackSize: 0.5,
+      id: '8',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 9',
-        size: 1.7,
-        isDeleted: false,
-        codeSize: 0.4,
-        dataSize: 0.3,
-        stackSize: 1,
-        id: '9'),
+      isSelected: false,
+      name: 'Proceso 9',
+      size: 1.7,
+      isDeleted: false,
+      codeSize: 0.4,
+      dataSize: 0.3,
+      stackSize: 1,
+      id: '9',
+      space: 0,
+    ),
     Process(
-        isSelected: false,
-        name: 'Proceso 10',
-        size: 1.9,
-        isDeleted: false,
-        codeSize: 1,
-        dataSize: 0.6,
-        stackSize: 0.3,
-        id: '10'),
+      isSelected: false,
+      name: 'Proceso 10',
+      size: 1.9,
+      isDeleted: false,
+      codeSize: 1,
+      dataSize: 0.6,
+      stackSize: 0.3,
+      id: '10',
+      space: 0,
+    ),
   ];
-  
+
   List<Process> auxMemoryList = [];
 
   List<Process> auxSegmentationList = [
@@ -198,7 +216,7 @@ class _HomePageState extends State<HomePage> {
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
     Process(isSelected: true, isDeleted: true, name: '', size: 1),
   ];
-  
+
   int index = 0;
   double totalMemory = 0;
 
@@ -825,50 +843,32 @@ class _HomePageState extends State<HomePage> {
       findSpace(position);
       if (value) {
         processList[position].isSelected = value;
-        if (totalMemory < 16) {
-          if (findSpaceBool) {
-            double aux = auxMemoryList[index].size;
-            auxMemoryList.removeAt(index);
-            auxMemoryList.insert(
-              index,
-              Process(
-                isSelected: true,
-                isDeleted: false,
-                name: processList[position].name,
-                size: processList[position].size,
-                space: aux - processList[position].size,
-              ),
-            );
-            getIsDeleted();
-          } else {
-            auxMemoryList.add(
-              Process(
-                isSelected: true,
-                isDeleted: false,
-                name: processList[position].name,
-                size: processList[position].size,
-              ),
-            );
-            getIsDeleted();
-          }
+
+        if (findSpaceBool) {
+          double aux = auxMemoryList[index].size;
+          auxMemoryList.removeAt(index);
+          auxMemoryList.insert(
+            index,
+            Process(
+              isSelected: true,
+              isDeleted: false,
+              name: processList[position].name,
+              size: processList[position].size,
+              space: aux - processList[position].size,
+            ),
+          );
+          getIsDeleted();
         } else {
-          processList[position].isSelected = false;
-          Alert(
-            context: context,
-            type: AlertType.error,
-            title: 'Memoria insuficiente',
-            desc: 'El proceso no se puede agregar porque no hay más memoria.',
-            buttons: [
-              DialogButton(
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Palette.white, fontSize: 20),
-                ),
-                onPressed: () => Navigator.pop(context),
-                width: 120,
-              )
-            ],
-          ).show();
+          auxMemoryList.add(
+            Process(
+              isSelected: true,
+              isDeleted: false,
+              name: processList[position].name,
+              size: processList[position].size,
+              space: 0,
+            ),
+          );
+          getIsDeleted();
         }
       } else {
         processList[position].isSelected = false;
@@ -880,6 +880,7 @@ class _HomePageState extends State<HomePage> {
               (process) => process.size == processList[position].size);
         } else {
           auxMemoryList[index].isDeleted = true;
+          auxMemoryList[index].space = auxMemoryList[position].size;
         }
         setState(() {
           totalMemory -= processList[position].size;
@@ -916,9 +917,8 @@ class _HomePageState extends State<HomePage> {
             physics: NeverScrollableScrollPhysics(),
             itemCount: auxMemoryList.length,
             itemBuilder: (context, position) {
-              return DynamicPartitionContainer(
+              return CompactationContainer(
                 process: auxMemoryList[position],
-                withCompaction: false,
               );
             },
           ),

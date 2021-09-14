@@ -3,26 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/models/models.dart';
 
-class DynamicPartitionContainer extends StatefulWidget {
-  DynamicPartitionContainer({
+class CompactationContainer extends StatefulWidget {
+  CompactationContainer({
     @required this.process,
-    @required this.withCompaction,
   });
   Process process;
-  bool withCompaction;
 
   @override
-  _DynamicPartitionContainerState createState() =>
-      _DynamicPartitionContainerState();
+  _CompactationContainerState createState() => _CompactationContainerState();
 }
 
-class _DynamicPartitionContainerState extends State<DynamicPartitionContainer> {
+class _CompactationContainerState extends State<CompactationContainer> {
   @override
   Widget build(BuildContext context) {
     return widget.process.isDeleted
-        ? Container(
-            height: widget.withCompaction ? 0 : (widget.process.size / 2) * 100)
+        ? Container(height: (widget.process.size / 2) * 100)
         : Container(
+            margin: EdgeInsets.only(
+              bottom: widget.process.space != 0? (widget.process.space / 2) * 100 : 0,
+            ),
             height: (widget.process.size / 2) * 100,
             width: 500,
             decoration: BoxDecoration(

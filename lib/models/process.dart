@@ -9,6 +9,7 @@ class Process {
   bool isDeleted;
   bool isShare;
   double space;
+  double totalSize;
   Process({
     this.id,
     this.isSelected,
@@ -20,5 +21,6 @@ class Process {
     this.isDeleted,
     this.isShare,
     this.space,
+    this.totalSize,
   });
 }
