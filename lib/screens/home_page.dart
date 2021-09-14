@@ -437,7 +437,7 @@ class _HomePageState extends State<HomePage> {
 
           index = auxMemoryList.indexWhere(
             (process2) =>
-                process2.size <= processList[position].size &&
+                process2.size >= processList[position].size &&
                 process2.isDeleted,
           );
         print('index: $index');
