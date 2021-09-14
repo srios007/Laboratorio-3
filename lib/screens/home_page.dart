@@ -9,9 +9,10 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController;
-  
+
   bool button1Bool = true;
   bool button2Bool = false;
   bool button3Bool = false;
@@ -426,17 +427,21 @@ class _HomePageState extends State<HomePage> {
       findSpaceBool = false;
     });
     // derecha: Lista de procesos
-    // izquierda: Lista gráfica de procesos 
+    // izquierda: Lista gráfica de procesos
     auxMemoryList.forEach((process) {
       if (processList[position].size <= process.size && process.isDeleted) {
+        print(process.name);
+        print(processList[position].name);
         setState(() {
           findSpaceBool = true;
-          print('Posición f f: $index');
-          
+
           index = auxMemoryList.indexWhere(
-            (process2) => processList[position].size <= process.size && process.isDeleted,
+            (process2) =>
+                process2.size <= processList[position].size &&
+                process2.isDeleted,
           );
-          print('Posición: $index');
+        print('index: $index');
+
         });
         return isNotEmpty;
       }
