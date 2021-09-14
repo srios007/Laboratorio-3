@@ -825,6 +825,7 @@ class _HomePageState extends State<HomePage> {
         processList[position].isSelected = value;
         if (totalMemory < 16) {
           if (findSpaceBool) {
+            double aux = auxMemoryList[index].size;
             auxMemoryList.removeAt(index);
             auxMemoryList.insert(
               index,
@@ -833,6 +834,7 @@ class _HomePageState extends State<HomePage> {
                 isDeleted: false,
                 name: processList[position].name,
                 size: processList[position].size,
+                space: aux - processList[position].size,
               ),
             );
             getIsDeleted();

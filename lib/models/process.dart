@@ -8,6 +8,7 @@ class Process {
   double stackSize;
   bool isDeleted;
   bool isShare;
+  double space;
   Process({
     this.id,
     this.isSelected,
@@ -18,5 +19,6 @@ class Process {
     this.stackSize,
     this.isDeleted,
     this.isShare,
+    this.space,
   });
 }
