@@ -128,48 +128,123 @@ class _VariableStaticPartitionScreenState
             physics: ClampingScrollPhysics(),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 100),
+                padding: const EdgeInsets.symmetric(vertical:10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 400,
-                          width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                          ),
-                          child: Center(
-                            child: ListView.builder(
-                              itemCount: processList.length,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, position) {
-                                return CustomCheckBox(
-                                  process: processList[position],
-                                  onChanged: (value) {
-                                    variableStaticPartitionFuntion(
-                                        position, value);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
+                    Container(
+                      height: 450,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.black,
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 30),
-                          height: 400,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [],
-                          ),
-                        )
-                      ],
+                      ),
+                      child: Center(
+                        child: ListView.builder(
+                          itemCount: processList.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, position) {
+                            return CustomCheckBox(
+                              process: processList[position],
+                              onChanged: (value) {
+                                variableStaticPartitionFuntion(position, value);
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                    Stack(
+                    Container(
+                      height: 443,
+                      width: 503,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.darkBlue,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Center(
+                                  child: Text(
+                                    'Nombre del proceso',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      // fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Dirección base',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Capacidad',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 400,
+                            width: 503,
+                            child: Center(
+                              child: ListView.builder(
+                                itemCount: auxMemoryList.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, position) {
+                                  return auxMemoryList[position].isDeleted
+                                  ? const SizedBox.shrink()
+                                  :TableContainer(
+                                    process: auxMemoryList[position],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                   Stack(
                       children: [
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
@@ -270,6 +345,7 @@ class _VariableStaticPartitionScreenState
                 name: processList[position].name,
                 space: aux - processList[position].size,
                 size: processList[position].size,
+                color: processList[position].color,
               ),
             );
             getIsDeleted();
@@ -281,6 +357,8 @@ class _VariableStaticPartitionScreenState
                 name: processList[position].name,
                 size: processList[position].size,
                 space: 0,
+                color: processList[position].color,
+
               ),
             );
             getIsDeleted();

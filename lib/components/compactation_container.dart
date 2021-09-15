@@ -20,7 +20,9 @@ class _CompactationContainerState extends State<CompactationContainer> {
         ? Container(height: (widget.process.size / 2) * 100)
         : Container(
             margin: EdgeInsets.only(
-              bottom: widget.process.space != 0? (widget.process.space / 2) * 100 : 0,
+              bottom: widget.process.space != 0
+                  ? (widget.process.space / 2) * 100
+                  : 0,
             ),
             height: (widget.process.size / 2) * 100,
             width: 500,
@@ -28,7 +30,7 @@ class _CompactationContainerState extends State<CompactationContainer> {
               border: Border.all(
                 color: Palette.darkBlue,
               ),
-              color: Palette.black,
+              color: widget.process.color,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -38,6 +40,7 @@ class _CompactationContainerState extends State<CompactationContainer> {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
+                    color: Palette.white,
                   ),
                 ),
                 Text(
@@ -45,6 +48,7 @@ class _CompactationContainerState extends State<CompactationContainer> {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
+                    color: Palette.white,
                   ),
                 ),
               ],

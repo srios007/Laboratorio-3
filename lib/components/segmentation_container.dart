@@ -46,7 +46,6 @@ class _SegmentationContainerWidgetState extends State<SegmentationContainerWidge
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
                     color: Palette.white,
-
                   ),
                 ),
                 Text(
