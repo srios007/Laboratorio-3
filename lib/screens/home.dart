@@ -5,6 +5,7 @@ import 'package:laboratorio_3/config/config.dart';
 
 import '../main.dart';
 import 'static_partition/static_partition_screen.dart';
+import 'variable_static_partition/variable_static_partition_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -89,7 +90,14 @@ class _HomeState extends State<Home> {
                         isActive: true,
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => VariableStaticPartitionScreen(),
+                            ),
+                          );
+                        },
                         title: 'Particiones estáticas variables',
                         isActive: true,
                       ),
