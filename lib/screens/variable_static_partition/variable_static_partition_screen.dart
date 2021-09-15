@@ -9,34 +9,31 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class VariableStaticPartitionScreen extends StatefulWidget {
   @override
-  _VariableStaticPartitionScreenState createState() =>
-      _VariableStaticPartitionScreenState();
+  _VariableStaticPartitionScreenState createState() => _VariableStaticPartitionScreenState();
 }
 
-class _VariableStaticPartitionScreenState
-    extends State<VariableStaticPartitionScreen> {
+class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionScreen> {
   ScrollController _scrollController;
   List<Process> processList = [];
   List<Widget> memoryList = [
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
+    PartitionContainer(height: 200,),
+    PartitionContainer(height: 150,),
+    PartitionContainer(height: 150,),
+    PartitionContainer(height: 100,),
+    PartitionContainer(height: 50,),
+    PartitionContainer(height: 50,),
+    PartitionContainer(height: 25,),
+    PartitionContainer(height: 25,),
   ];
+  List<double> machete = [200,150,150,100,50,50,25,25,];
   List<Process> auxMemoryList = [];
   bool isNotEmpty = false;
-  bool findSpaceBool = false;
-
   int index = 0;
 
   @override
   void initState() {
     _scrollController = ScrollController();
-        processList = processConstantList;
+    processList = processConstantList;
 
     super.initState();
   }
@@ -67,6 +64,7 @@ class _VariableStaticPartitionScreenState
                             element.isDeleted = false;
                           });
                         });
+
                         Navigator.pop(context);
                       },
                       padding: EdgeInsets.all(20),
@@ -82,7 +80,7 @@ class _VariableStaticPartitionScreenState
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Particiones estáticas variables',
+                        'Particiones estáticas fijas',
                         style: TextStyle(
                           color: Palette.white,
                           fontSize: 30,
@@ -128,7 +126,7 @@ class _VariableStaticPartitionScreenState
             physics: ClampingScrollPhysics(),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical:10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -148,7 +146,7 @@ class _VariableStaticPartitionScreenState
                             return CustomCheckBox(
                               process: processList[position],
                               onChanged: (value) {
-                                variableStaticPartitionFuntion(position, value);
+                                staticPartitionFuntion(position, value);
                               },
                             );
                           },
@@ -244,26 +242,25 @@ class _VariableStaticPartitionScreenState
                         ],
                       ),
                     ),
-                   Stack(
+                    Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                           height: 800,
                           width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                            color: Palette.lightBlue.withOpacity(0.3),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: memoryList.length,
+                            itemBuilder: (context, position) {
+                              return memoryList[position];
+                            },
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                           height: 800,
                           width: 500,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Palette.darkBlue,
+                              color: Palette.black,
                             ),
                             color: Palette.lightBlue.withOpacity(0.3),
                           ),
@@ -271,9 +268,9 @@ class _VariableStaticPartitionScreenState
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return CompactationContainer(
-                                process: auxMemoryList[position],
-                              );
+                              return  StaticPartitionContainer(
+                                      process: auxMemoryList[position],
+                                    );
                             },
                           ),
                         ),
@@ -306,70 +303,69 @@ class _VariableStaticPartitionScreenState
     });
   }
 
-  bool findSpace(int position) {
+  void staticPartitionFuntion(int position, bool value) {
     setState(() {
-      findSpaceBool = false;
-    });
-    // derecha: Lista de procesos
-    // izquierda: Lista gráfica de procesos
-    auxMemoryList.forEach((process) {
-      if (processList[position].size <= process.size && process.isDeleted) {
-        setState(() {
-          findSpaceBool = true;
-          index = auxMemoryList.indexWhere(
-            (process2) =>
-                process2.size >= processList[position].size &&
-                process2.isDeleted,
-          );
-        });
-        return isNotEmpty;
-      }
-    });
-  }
-
-  void variableStaticPartitionFuntion(int position, bool value) {
-    setState(() {
-      findSpace(position);
+      getIsDeleted();
       if (value) {
-        processList[position].isSelected = value;
-        if (auxMemoryList.length < 8 || findSpaceBool) {
-          if (findSpaceBool) {
-            double aux = auxMemoryList[index].size;
+        if (processList[position].size <= 2) {
+          processList[position].isSelected = value;
+          if (auxMemoryList.length < 8 || isNotEmpty) {
+            if (isNotEmpty) {
+              auxMemoryList.removeAt(index);
+              auxMemoryList.insert(
+                index,
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                  color: processList[position].color,
+                  space: machete[index],
+                ),
+              );
+              print(processList[position].size.round().toRadixString(16));
+              getIsDeleted();
+            } else {
+              auxMemoryList.add(
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                  color: processList[position].color,
+                  space: machete[auxMemoryList.length],
 
-            auxMemoryList.removeAt(index);
-            auxMemoryList.insert(
-              index,
-              Process(
-                isSelected: true,
-                isDeleted: false,
-                name: processList[position].name,
-                space: aux - processList[position].size,
-                size: processList[position].size,
-                color: processList[position].color,
-              ),
-            );
-            getIsDeleted();
+                  
+                ),
+              );
+              getIsDeleted();
+            }
           } else {
-            auxMemoryList.add(
-              Process(
-                isSelected: true,
-                isDeleted: false,
-                name: processList[position].name,
-                size: processList[position].size,
-                space: 0,
-                color: processList[position].color,
-
-              ),
-            );
-            getIsDeleted();
+            processList[position].isSelected = false;
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: 'Memoria insuficiente',
+              desc: 'El proceso no se puede agregar porque no hay más memoria.',
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Palette.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
           }
         } else {
           processList[position].isSelected = false;
           Alert(
             context: context,
             type: AlertType.error,
-            title: 'Memoria insuficiente',
-            desc: 'El proceso no se puede agregar porque no hay más memoria.',
+            title: 'No se puede agregar el proceso',
+            desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
             buttons: [
               DialogButton(
                 child: Text(

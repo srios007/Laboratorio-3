@@ -21,7 +21,8 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
         ? Container(height: 100)
         : Container(
             margin: EdgeInsets.only(
-                bottom: 100 - ((widget.process.size / 2) * 100)),
+              bottom: widget.process.space - ((widget.process.size / 2) * 100),
+            ),
             height: (widget.process.size / 2) * 100,
             width: 500,
             decoration: BoxDecoration(
@@ -39,7 +40,6 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
                     color: Palette.white,
-
                   ),
                 ),
                 Text(
