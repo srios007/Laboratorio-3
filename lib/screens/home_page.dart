@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   bool isNotEmpty = false;
   bool findSpaceBool = false;
   bool canAdd = false;
+   double totalMemory = 0;
 
   List<Widget> memoryList = [
     PartitionContainer(),
@@ -219,7 +220,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int index = 0;
-  double totalMemory = 0;
+ 
 
   @override
   void initState() {

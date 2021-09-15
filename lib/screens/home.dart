@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
-
-import '../main.dart';
-import 'static_partition/static_partition_screen.dart';
-import 'variable_static_partition/variable_static_partition_screen.dart';
+import 'screens.dart';
 
 class Home extends StatefulWidget {
   @override
