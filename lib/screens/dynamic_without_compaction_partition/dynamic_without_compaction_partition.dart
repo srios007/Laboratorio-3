@@ -155,7 +155,7 @@ class _DynamicWithoutCompactionPartitionScreenState
                                 return CustomCheckBox(
                                   process: processList[position],
                                   onChanged: (value) {
-                                    dynamicCompactionPartitionFuntion(
+                                    dynamicPartitionWithoutCompactionFuntion(
                                         position, value);
                                   },
                                 );
@@ -177,7 +177,7 @@ class _DynamicWithoutCompactionPartitionScreenState
                       children: [
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          height: 800,
+                          height: 802,
                           width: 500,
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -200,9 +200,8 @@ class _DynamicWithoutCompactionPartitionScreenState
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return DynamicPartitionContainer(
+                              return CompactationContainer(
                                 process: auxMemoryList[position],
-                                withCompaction: true,
                               );
                             },
                           ),
@@ -219,37 +218,120 @@ class _DynamicWithoutCompactionPartitionScreenState
     );
   }
 
-  void dynamicCompactionPartitionFuntion(int position, bool value) {
+  void setTotalMemory(position) {
     setState(() {
-      processList[position].isSelected = value;
-      if (!value) {
-        auxMemoryList.removeWhere(
+      totalMemory += processList[position].size;
+    });
+  }
+
+  void enoughSPace(int position) {
+    setState(() {
+      canAdd = true;
+    });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos
+    auxMemoryList.forEach((process) {
+      if (processList[position].size <= process.size && process.isDeleted) {
+        setState(() {
+          canAdd = false;
+          index = auxMemoryList.indexWhere(
+            (process2) =>
+                process2.size >= processList[position].size &&
+                process2.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  bool findSpace(int position) {
+    setState(() {
+      findSpaceBool = false;
+    });
+    // derecha: Lista de procesos
+    // izquierda: Lista gráfica de procesos
+    auxMemoryList.forEach((process) {
+      if (processList[position].size <= process.size && process.isDeleted) {
+        setState(() {
+          findSpaceBool = true;
+          index = auxMemoryList.indexWhere(
+            (process2) =>
+                process2.size >= processList[position].size &&
+                process2.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  bool getIsDeleted() {
+    setState(() {
+      isNotEmpty = false;
+    });
+    auxMemoryList.forEach((element) {
+      if (element.isDeleted) {
+        setState(() {
+          isNotEmpty = true;
+          index = auxMemoryList.indexWhere(
+            (process) => process.isDeleted,
+          );
+        });
+        return isNotEmpty;
+      }
+    });
+  }
+
+  void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
+    enoughSPace(position);
+    setTotalMemory(position);
+    setState(() {
+      findSpace(position);
+      if (value) {
+        processList[position].isSelected = value;
+
+        if (findSpaceBool) {
+          double aux = auxMemoryList[index].size;
+          auxMemoryList.removeAt(index);
+          auxMemoryList.insert(
+            index,
+            Process(
+              isSelected: true,
+              isDeleted: false,
+              name: processList[position].name,
+              size: processList[position].size,
+              space: aux - processList[position].size,
+            ),
+          );
+          getIsDeleted();
+        } else {
+          auxMemoryList.add(
+            Process(
+              isSelected: true,
+              isDeleted: false,
+              name: processList[position].name,
+              size: processList[position].size,
+              space: 0,
+            ),
+          );
+          getIsDeleted();
+        }
+      } else {
+        processList[position].isSelected = false;
+        int index = auxMemoryList.indexWhere(
           (process) => process.size == processList[position].size,
         );
-      } else {
-        if (auxMemoryList.length < 18) {
-          auxMemoryList.add(
-            processList[position],
-          );
+        if (index == auxMemoryList.length - 1) {
+          auxMemoryList.removeWhere(
+              (process) => process.size == processList[position].size);
         } else {
-          processList[position].isSelected = false;
-          Alert(
-            context: context,
-            type: AlertType.error,
-            title: 'Memoria insuficiente',
-            desc: 'El proceso no se puede agregar porque no hay más memoria.',
-            buttons: [
-              DialogButton(
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onPressed: () => Navigator.pop(context),
-                width: 120,
-              )
-            ],
-          ).show();
+          auxMemoryList[index].isDeleted = true;
+          auxMemoryList[index].space = auxMemoryList[position].size;
         }
+        setState(() {
+          totalMemory -= processList[position].size;
+        });
       }
     });
   }
