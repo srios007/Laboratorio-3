@@ -267,8 +267,8 @@ class _PaginationScreenState extends State<PaginationScreen> {
                                 itemCount: auxPaginationList.length,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
-                                  return auxPaginationList[position].name == ''
-                                      ? null
+                                  return auxPaginationList[position].name == '' || auxPaginationList[position].isDeleted
+                                      ? const SizedBox.shrink()
                                       : TableContainer(
                                           process: auxPaginationList[position],
                                         );
@@ -281,7 +281,6 @@ class _PaginationScreenState extends State<PaginationScreen> {
                     ),
                     Stack(
                       children: [
-                       
                         Container(
                           height: 800,
                           width: 500,

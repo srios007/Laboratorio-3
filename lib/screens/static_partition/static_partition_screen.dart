@@ -229,7 +229,9 @@ class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
                                 itemCount: auxMemoryList.length,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
-                                  return TableContainer(
+                                  return auxMemoryList[position].isDeleted
+                                  ? const SizedBox.shrink()
+                                  :TableContainer(
                                     process: auxMemoryList[position],
                                   );
                                 },
@@ -265,9 +267,9 @@ class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return StaticPartitionContainer(
-                                process: auxMemoryList[position],
-                              );
+                              return  StaticPartitionContainer(
+                                      process: auxMemoryList[position],
+                                    );
                             },
                           ),
                         ),

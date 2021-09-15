@@ -27,35 +27,45 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
   ];
   List<Process> auxSegmentationList = [
     Process(
-        isSelected: true,
-        isDeleted: false,
-        name: 'Segmento Proceso 1',
-        size: 0.2,
-        id: '1'),
+      isSelected: true,
+      isDeleted: false,
+      name: 'Segmento de Spotify',
+      size: 0.2,
+      id: '1',
+      color: Palette.spotify,
+    ),
     Process(
-        isSelected: true,
-        isDeleted: false,
-        name: 'Segmento Proceso 2',
-        size: 0.1,
-        id: '1'),
+      isSelected: true,
+      isDeleted: false,
+      name: 'Segmento de Zoom',
+      size: 0.1,
+      id: '2',
+      color: Palette.zoom,
+    ),
     Process(
-        isSelected: true,
-        isDeleted: false,
-        name: 'Segmento Proceso 1',
-        size: 0.2,
-        id: '1'),
+      isSelected: true,
+      isDeleted: false,
+      name: 'Segmento de Spotify',
+      size: 0.2,
+      id: '1',
+      color: Palette.spotify,
+    ),
     Process(
-        isSelected: true,
-        isDeleted: false,
-        name: 'Segmento Proceso 2',
-        size: 0.1,
-        id: '1'),
+      isSelected: true,
+      isDeleted: false,
+      name: 'Segmento de Zoom',
+      size: 0.1,
+      id: '2',
+      color: Palette.zoom,
+    ),
     Process(
-        isSelected: true,
-        isDeleted: false,
-        name: 'Segmento Proceso 1 y Proceso 2',
-        size: 0.3,
-        id: '1 2'),
+      isSelected: true,
+      isDeleted: false,
+      name: 'Segmento de Spotify y Zoom',
+      size: 0.3,
+      id: '1 2',
+      color: Palette.black,
+    ),
   ];
 
   bool isNotEmpty = false;
@@ -66,6 +76,8 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
   void initState() {
     _scrollController = ScrollController();
     processList = processCompleteConstantList;
+    processList[0].isSelected = true;
+    processList[1].isSelected = true;
     super.initState();
   }
 
@@ -156,82 +168,159 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
             physics: ClampingScrollPhysics(),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 100),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Container(
+                      height: 450,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.black,
+                        ),
+                      ),
+                      child: Center(
+                        child: ListView.builder(
+                          itemCount: processList.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, position) {
+                            return CustomCheckBox(
+                              process: processList[position],
+                              onChanged: (value) {
+                                segmentationFuntion(position, value);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height:800,
+                      width: 503,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.darkBlue,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Center(
+                                  child: Text(
+                                    'Nombre del proceso',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      // fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Dirección base',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Capacidad',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 758,
+                            width: 503,
+                            child: Center(
+                              child: ListView.builder(
+                                itemCount: auxSegmentationList.length,
+                                // physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, position) {
+                                  return auxSegmentationList[position].isDeleted
+                                      ? null
+                                      : TableContainer(
+                                          process:
+                                              auxSegmentationList[position],
+                                        );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Stack(
                       children: [
                         Container(
-                          height: 400,
+                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                          height: 800,
                           width: 500,
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Palette.darkBlue,
                             ),
-                          ),
-                          child: Center(
-                            child: ListView.builder(
-                              itemCount: processList.length,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, position) {
-                                return CustomCheckBox(
-                                  process: processList[position],
-                                  onChanged: (value) {
-                                    segmentationFuntion(position, value);
-                                  },
-                                );
-                              },
-                            ),
+                            color: Palette.lightBlue.withOpacity(0.3),
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.only(top: 30),
-                          height: 400,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [],
+                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                          height: 800,
+                          width: 500,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Palette.darkBlue,
+                            ),
+                            color: Palette.lightBlue.withOpacity(0.3),
                           ),
-                        )
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: auxSegmentationList.length,
+                            itemBuilder: (context, position) {
+                              return SegmentationContainerWidget(
+                                process: auxSegmentationList[position],
+                              );
+                            },
+                          ),
+                        ),
                       ],
-                    ),
-                  Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 800,
-          width: 500,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Palette.darkBlue,
-            ),
-            color: Palette.lightBlue.withOpacity(0.3),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-          height: 800,
-          width: 500,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Palette.darkBlue,
-            ),
-            color: Palette.lightBlue.withOpacity(0.3),
-          ),
-          child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: auxSegmentationList.length,
-            itemBuilder: (context, position) {
-              return SegmentationContainerWidget(
-                process: auxSegmentationList[position],
-              );
-            },
-          ),
-        ),
-      ],
-    )
-   ],
+                    )
+                  ],
                 ),
               ),
             ),
@@ -293,23 +382,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
               auxSegmentationList.insert(
                 index,
                 Process(
-                    id: processList[position].id,
-                    isSelected: true,
-                    isDeleted: false,
-                    name: 'Segmento ${processList[position].name}',
-                    size: i == 0
-                        ? processList[position].codeSize
-                        : i == 1
-                            ? processList[position].dataSize
-                            : processList[position].stackSize),
-              );
-              getIsDeletedSegmentation();
-            }
-          }
-        } else {
-          for (int i = 0; i < 3; i++) {
-            auxSegmentationList.add(
-              Process(
                   id: processList[position].id,
                   isSelected: true,
                   isDeleted: false,
@@ -318,7 +390,28 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                       ? processList[position].codeSize
                       : i == 1
                           ? processList[position].dataSize
-                          : processList[position].stackSize),
+                          : processList[position].stackSize,
+                  color: processList[position].color,
+                ),
+              );
+              getIsDeletedSegmentation();
+            }
+          }
+        } else {
+          for (int i = 0; i < 3; i++) {
+            auxSegmentationList.add(
+              Process(
+                id: processList[position].id,
+                isSelected: true,
+                isDeleted: false,
+                name: 'Segmento ${processList[position].name}',
+                size: i == 0
+                    ? processList[position].codeSize
+                    : i == 1
+                        ? processList[position].dataSize
+                        : processList[position].stackSize,
+                color: processList[position].color,
+              ),
             );
 
             getIsDeletedSegmentation();

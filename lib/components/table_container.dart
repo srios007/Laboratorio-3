@@ -42,6 +42,7 @@ class TableContainer extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
         Container(
