@@ -9,3 +9,4 @@ export '../screens/variable_static_partition/widgets/dynamic_partition_container
 export 'pagination_container.dart';
 export 'compactation_container.dart';
 export 'segmentation_container.dart';
+export 'table_container.dart';

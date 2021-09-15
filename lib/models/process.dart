@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Process {
   String id;
   bool isSelected;
@@ -10,6 +12,7 @@ class Process {
   bool isShare;
   double space;
   double totalSize;
+  Color color;
   
   Process({
     this.id,
@@ -23,5 +26,6 @@ class Process {
     this.isShare,
     this.space,
     this.totalSize,
+    this.color,
   });
 }

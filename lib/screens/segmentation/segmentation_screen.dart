@@ -5,7 +5,6 @@ import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/config/constants/list_constants.dart';
 import 'package:laboratorio_3/models/models.dart';
 import 'package:laboratorio_3/screens/home.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SegmentationScreen extends StatefulWidget {
   @override

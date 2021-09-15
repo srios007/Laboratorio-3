@@ -28,6 +28,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             onChanged: widget.onChanged,
           ),
           Container(
+            alignment: Alignment.center,
             width: 130,
             child: Center(
               child: Text(
@@ -36,6 +37,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -48,6 +50,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

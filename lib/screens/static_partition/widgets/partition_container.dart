@@ -21,9 +21,9 @@ class _PartitionContainerState extends State<PartitionContainer> {
       width: widget.width ?? 500,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Palette.darkBlue,
+          color: Palette.black,
         ),
-        color: Palette.lightBlue.withOpacity(0.3),
+        color: Palette.lightGrey,
       ),
     );
   }

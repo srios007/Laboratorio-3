@@ -13,4 +13,16 @@ class Palette {
   static const Color bgDarkColor = Color(0xFF001D2B);
   static const Color transparent = Color(0x00000000);
   static const Color bgContainer = Color(0xFFF0F0F0);
+
+  static const Color spotify = Color(0xFF1ED05E);
+  static const Color zoom = Color(0xFF019CFC);
+  static const Color vsCode = Color(0xFF5B2D90);
+  static const Color steam = Color(0xFF07193D);
+  static const Color whatsapp = Color(0xFF3DE75D);
+  static const Color netbeans = Color(0xFF87B1D8);
+  static const Color chrome = Color(0xFFFED032);
+  static const Color teams = Color(0xFF6065AB);
+  static const Color photoshop = Color(0xFF1E1E4C);
+  static const Color reader = Color(0xFFAE0B00);
+
 }
