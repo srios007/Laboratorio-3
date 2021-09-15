@@ -213,7 +213,7 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Particiones estáticas fijas',
+                        'Segmentación',
                         style: TextStyle(
                           color: Palette.white,
                           fontSize: 30,

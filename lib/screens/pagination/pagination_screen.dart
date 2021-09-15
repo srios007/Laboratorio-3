@@ -217,7 +217,7 @@ class _PaginationScreenState extends State<PaginationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Particiones estáticas fijas',
+                        'Paginación',
                         style: TextStyle(
                           color: Palette.white,
                           fontSize: 30,

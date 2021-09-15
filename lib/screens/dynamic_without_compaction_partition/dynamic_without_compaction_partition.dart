@@ -86,7 +86,7 @@ class _DynamicWithoutCompactionPartitionScreenState
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Particiones dinámicas con compactación',
+                        'Particiones dinámicas sin compactación',
                         style: TextStyle(
                           color: Palette.white,
                           fontSize: 30,

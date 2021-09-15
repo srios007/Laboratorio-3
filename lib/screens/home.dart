@@ -91,7 +91,8 @@ class _HomeState extends State<Home> {
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => VariableStaticPartitionScreen(),
+                              builder: (context) =>
+                                  VariableStaticPartitionScreen(),
                             ),
                           );
                         },
@@ -99,7 +100,15 @@ class _HomeState extends State<Home> {
                         isActive: true,
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  DynamicCompactionPartitionScreen(),
+                            ),
+                          );
+                        },
                         title: 'Particiones dinámicas con compactación',
                         isActive: true,
                       ),
@@ -109,17 +118,39 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  DynamicWithoutCompactionPartitionScreen(),
+                            ),
+                          );
+                        },
                         title: 'Particiones dinámicas sin compactación',
                         isActive: true,
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => SegmentationScreen(),
+                            ),
+                          );
+                        },
                         title: 'Segmentación',
                         isActive: true,
                       ),
                       CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => PaginationScreen(),
+                            ),
+                          );
+                        },
                         title: 'Paginación',
                         isActive: true,
                       ),
