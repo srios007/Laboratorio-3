@@ -85,6 +85,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.1,
     id: '1',
     space: 0,
+    color: Palette.spotify,
   ),
   Process(
     isSelected: false,
@@ -96,6 +97,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.2,
     id: '2',
     space: 0,
+    color: Palette.zoom,
   ),
   Process(
     isSelected: false,
@@ -107,6 +109,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.2,
     id: '3',
     space: 0,
+    color: Palette.vsCode,
   ),
   Process(
     isSelected: false,
@@ -118,6 +121,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.2,
     id: '4',
     space: 0,
+    color: Palette.steam,
   ),
   Process(
     isSelected: false,
@@ -128,6 +132,7 @@ List<Process> processCompleteConstantList = [
     dataSize: 0.3,
     stackSize: 0.4,
     id: '5',
+    color: Palette.whatsapp,
   ),
   Process(
     isSelected: false,
@@ -139,6 +144,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.4,
     id: '6',
     space: 0,
+    color: Palette.netbeans,
   ),
   Process(
     isSelected: false,
@@ -150,6 +156,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.5,
     id: '7',
     space: 0,
+    color: Palette.chrome,
   ),
   Process(
     isSelected: false,
@@ -161,6 +168,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.5,
     id: '8',
     space: 0,
+    color: Palette.teams,
   ),
   Process(
     isSelected: false,
@@ -172,6 +180,7 @@ List<Process> processCompleteConstantList = [
     stackSize: 1,
     id: '9',
     space: 0,
+    color: Palette.photoshop,
   ),
   Process(
     isSelected: false,
@@ -183,5 +192,6 @@ List<Process> processCompleteConstantList = [
     stackSize: 0.3,
     id: '10',
     space: 0,
+    color: Palette.reader,
   ),
 ];

@@ -15,7 +15,7 @@ class PaginationScreen extends StatefulWidget {
 class _PaginationScreenState extends State<PaginationScreen> {
   ScrollController _scrollController;
   List<Process> processList = [];
-  
+
   List<Widget> partitionMemoryList = [
     PartitionContainer(height: 50),
     PartitionContainer(height: 50),
@@ -163,61 +163,126 @@ class _PaginationScreenState extends State<PaginationScreen> {
             physics: ClampingScrollPhysics(),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 100),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 400,
-                          width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                          ),
-                          child: Center(
-                            child: ListView.builder(
-                              itemCount: processList.length,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, position) {
-                                return CustomCheckBox(
-                                  process: processList[position],
-                                  onChanged: (value) {
-                                    paginationFuntion(position, value);
-                                  },
-                                );
-                              },
-                            ),
-                          ),
+                    Container(
+                      height: 450,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.darkBlue,
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(top: 30),
-                          height: 400,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [],
+                      ),
+                      child: Center(
+                        child: ListView.builder(
+                          itemCount: processList.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, position) {
+                            return CustomCheckBox(
+                              process: processList[position],
+                              onChanged: (value) {
+                                paginationFuntion(position, value);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 682,
+                      width: 503,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Palette.darkBlue,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Center(
+                                  child: Text(
+                                    'Nombre del proceso',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      // fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Dirección base',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Palette.darkBlue,
+                                  ),
+                                ),
+                                height: 40,
+                                width: 167,
+                                child: Text(
+                                  'Capacidad',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        )
-                      ],
+                          Container(
+                            height: 640,
+                            width: 503,
+                            child: Center(
+                              child: ListView.builder(
+                                itemCount: auxPaginationList.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, position) {
+                                  return auxPaginationList[position].name == ''
+                                      ? null
+                                      : TableContainer(
+                                          process: auxPaginationList[position],
+                                        );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Stack(
                       children: [
+                       
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          height: 800,
-                          width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                            color: Palette.lightBlue.withOpacity(0.3),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                           height: 800,
                           width: 500,
                           child: ListView.builder(
@@ -229,12 +294,11 @@ class _PaginationScreenState extends State<PaginationScreen> {
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                           height: 800,
                           width: 500,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Palette.darkBlue,
+                              color: Palette.black,
                             ),
                             color: Palette.lightBlue.withOpacity(0.3),
                           ),
@@ -320,11 +384,13 @@ class _PaginationScreenState extends State<PaginationScreen> {
               auxPaginationList.insert(
                 index,
                 Process(
-                    isSelected: true,
-                    isDeleted: false,
-                    name: processList[position].name,
-                    size: 1,
-                    id: '${processList[position].size + i}'),
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: 1,
+                  id: '${processList[position].size + i}',
+                  color: processList[position].color,
+                ),
               );
               getIsDeletedPagination();
             }
@@ -354,6 +420,7 @@ class _PaginationScreenState extends State<PaginationScreen> {
                                 .substring(1)) /
                             10
                         : 1,
+                    color: processList[position].color,
                   ),
                 );
                 getIsDeletedPagination();
@@ -376,6 +443,7 @@ class _PaginationScreenState extends State<PaginationScreen> {
                                 .substring(1)) /
                             10
                         : 1,
+                    color: processList[position].color,
                   ),
                 );
                 getIsDeletedPagination();

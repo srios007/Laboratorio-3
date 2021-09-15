@@ -35,9 +35,9 @@ class _PaginationContainerState extends State<PaginationContainer> {
             width: 500,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Palette.darkBlue,
+                color: Palette.black,
               ),
-              color: Palette.black,
+              color: widget.process.color,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -47,6 +47,8 @@ class _PaginationContainerState extends State<PaginationContainer> {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
+                    color: Palette.white,
+
                   ),
                 ),
                 Text(
@@ -54,6 +56,7 @@ class _PaginationContainerState extends State<PaginationContainer> {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
+                    color: Palette.white,
                   ),
                 ),
               ],
