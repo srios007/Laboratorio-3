@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
+import 'package:laboratorio_3/config/constants/list_constants.dart';
 import 'package:laboratorio_3/models/models.dart';
 import 'package:laboratorio_3/screens/home.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -13,18 +14,7 @@ class StaticPartitionScreen extends StatefulWidget {
 
 class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
   ScrollController _scrollController;
-  List<Process> processList = [
-    Process(isSelected: false, name: 'Proceso 1', size: 0.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 2', size: 0.4, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 3', size: 0.6, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 4', size: 0.8, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 5', size: 1, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 6', size: 1.2, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 7', size: 3, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 8', size: 1.5, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 9', size: 1.7, isDeleted: false),
-    Process(isSelected: false, name: 'Proceso 10', size: 1.9, isDeleted: false),
-  ];
+  List<Process> processList = [];
   List<Widget> memoryList = [
     PartitionContainer(),
     PartitionContainer(),
@@ -42,6 +32,8 @@ class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
   @override
   void initState() {
     _scrollController = ScrollController();
+    processList = processConstantList;
+
     super.initState();
   }
 

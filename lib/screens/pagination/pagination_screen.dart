@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:laboratorio_3/components/components.dart';
 import 'package:laboratorio_3/config/config.dart';
+import 'package:laboratorio_3/config/constants/list_constants.dart';
 import 'package:laboratorio_3/models/models.dart';
 import 'package:laboratorio_3/screens/home.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -13,117 +14,8 @@ class PaginationScreen extends StatefulWidget {
 
 class _PaginationScreenState extends State<PaginationScreen> {
   ScrollController _scrollController;
-  List<Process> processList = [
-    Process(
-      isSelected: false,
-      name: 'Proceso 1',
-      size: 0.5,
-      isDeleted: false,
-      codeSize: 0.2,
-      dataSize: 0.2,
-      stackSize: 0.1,
-      id: '1',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 2',
-      size: 0.4,
-      isDeleted: false,
-      codeSize: 0.1,
-      dataSize: 0.1,
-      stackSize: 0.2,
-      id: '2',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 3',
-      size: 0.6,
-      isDeleted: false,
-      codeSize: 0.2,
-      dataSize: 0.2,
-      stackSize: 0.2,
-      id: '3',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 4',
-      size: 0.8,
-      isDeleted: false,
-      codeSize: 0.3,
-      dataSize: 0.3,
-      stackSize: 0.2,
-      id: '4',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 5',
-      size: 1,
-      isDeleted: false,
-      codeSize: 0.3,
-      dataSize: 0.3,
-      stackSize: 0.4,
-      id: '5',
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 6',
-      size: 1.2,
-      isDeleted: false,
-      codeSize: 0.3,
-      dataSize: 0.5,
-      stackSize: 0.4,
-      id: '6',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 7',
-      size: 3,
-      isDeleted: false,
-      codeSize: 1,
-      dataSize: 1.5,
-      stackSize: 0.5,
-      id: '7',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 8',
-      size: 1.5,
-      isDeleted: false,
-      codeSize: 0.5,
-      dataSize: 0.5,
-      stackSize: 0.5,
-      id: '8',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 9',
-      size: 1.7,
-      isDeleted: false,
-      codeSize: 0.4,
-      dataSize: 0.3,
-      stackSize: 1,
-      id: '9',
-      space: 0,
-    ),
-    Process(
-      isSelected: false,
-      name: 'Proceso 10',
-      size: 1.9,
-      isDeleted: false,
-      codeSize: 1,
-      dataSize: 0.6,
-      stackSize: 0.3,
-      id: '10',
-      space: 0,
-    ),
-  ];
+  List<Process> processList = [];
+  
   List<Widget> partitionMemoryList = [
     PartitionContainer(height: 50),
     PartitionContainer(height: 50),
@@ -179,6 +71,8 @@ class _PaginationScreenState extends State<PaginationScreen> {
   @override
   void initState() {
     _scrollController = ScrollController();
+    processList = processCompleteConstantList;
+
     super.initState();
   }
 
