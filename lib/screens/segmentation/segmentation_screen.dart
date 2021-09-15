@@ -90,6 +90,12 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                     height: 100,
                     child: CupertinoButton(
                       onPressed: () {
+                        setState(() {
+                          processCompleteConstantList.forEach((element) {
+                            element.isSelected = false;
+                            element.isDeleted = false;
+                          });
+                        });
                         Navigator.pop(context);
                       },
                       padding: EdgeInsets.all(20),

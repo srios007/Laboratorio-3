@@ -61,6 +61,12 @@ class _VariableStaticPartitionScreenState
                     height: 100,
                     child: CupertinoButton(
                       onPressed: () {
+                        setState(() {
+                          processConstantList.forEach((element) {
+                            element.isSelected = false;
+                            element.isDeleted = false;
+                          });
+                        });
                         Navigator.pop(context);
                       },
                       padding: EdgeInsets.all(20),
