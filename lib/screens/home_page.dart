@@ -1176,6 +1176,13 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
+  void setFalsePagination() {
+    setState(() {
+      auxPaginationList.forEach((element) {
+        element.isDeleted = true;
+      });
+    });
+  }
 
   void paginationFuntion(int position, bool value) {
     setState(() {
@@ -1287,13 +1294,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void setFalsePagination() {
-    setState(() {
-      auxPaginationList.forEach((element) {
-        element.isDeleted = true;
-      });
-    });
-  }
 
   Widget paginationContainer() {
     return Stack(
