@@ -323,7 +323,6 @@ class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
                   color: processList[position].color,
                 ),
               );
-              print(processList[position].size.round().toRadixString(16));
               getIsDeleted();
             } else {
               auxMemoryList.add(
@@ -335,10 +334,6 @@ class _StaticPartitionScreenState extends State<StaticPartitionScreen> {
                   color: processList[position].color,
                 ),
               );
-              int aux = (processList[position].size * 1048576).round();
-              print(aux);
-              print(
-                  '${processList[position].size}: 0x' + aux.toRadixString(16));
               getIsDeleted();
             }
           } else {

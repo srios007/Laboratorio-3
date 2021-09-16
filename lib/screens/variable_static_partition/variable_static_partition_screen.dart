@@ -334,8 +334,6 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                   size: processList[position].size,
                   color: processList[position].color,
                   space: machete[auxMemoryList.length],
-
-                  
                 ),
               );
               getIsDeleted();

@@ -21,7 +21,7 @@ class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
         ? Container(height: 100)
         : Container(
             margin: EdgeInsets.only(
-              bottom: 100- ((widget.process.size / 2) * 100),
+              bottom: 100 - ((widget.process.size / 2) * 100),
             ),
             height: (widget.process.size / 2) * 100,
             width: 500,
