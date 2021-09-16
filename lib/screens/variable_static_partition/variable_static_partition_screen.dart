@@ -35,17 +35,10 @@ class _VariableStaticPartitionScreenState
       label: '2 mb',
     ),
     PartitionContainer(
-      height: 50,
-      label: '1 mb',
+      height: 150,
+      label: '3 mb',
     ),
-    PartitionContainer(
-      height: 50,
-      label: '1 mb',
-    ),
-    PartitionContainer(
-      height: 50,
-      label: '1 mb',
-    ),
+    
     PartitionContainer(
       height: 100,
       label: '2 mb',
@@ -56,9 +49,7 @@ class _VariableStaticPartitionScreenState
     150,
     100,
     100,
-    50,
-    50,
-    50,
+    150,
     100,
   ];
   List<Process> auxMemoryList = [];
