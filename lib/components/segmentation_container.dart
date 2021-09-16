@@ -23,10 +23,7 @@ class _SegmentationContainerWidgetState extends State<SegmentationContainerWidge
                 :25,
           )
         : Container(
-            // margin: EdgeInsets.only(
-            //     bottom: widget.process.size < 1
-            //         ? 50 - ((widget.process.size / 2) * 100)
-            //         : 0,),
+            
             height: widget.process.size >= 0.5
                 ? ((widget.process.size / 2) * 100)
                 :25,

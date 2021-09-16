@@ -25,6 +25,7 @@ class TableContainer extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
@@ -49,7 +50,7 @@ class TableContainer extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Palette.darkBlue,
+              color: Palette.black,
             ),
           ),
           height: 40,

@@ -180,7 +180,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                                     'Nombre del proceso',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      // fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
@@ -198,7 +197,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                                   'Dirección base',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    // fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -215,7 +213,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                                   'Capacidad',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    // fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -227,7 +224,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                             child: Center(
                               child: ListView.builder(
                                 itemCount: auxSegmentationList.length,
-                                // physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
                                   return auxSegmentationList[position].isDeleted
                                       ? const SizedBox.shrink()
