@@ -20,38 +20,47 @@ class _VariableStaticPartitionScreenState
   List<Widget> memoryList = [
     PartitionContainer(
       height: 200,
+      label: '4 mb',
     ),
     PartitionContainer(
       height: 150,
-    ),
-    PartitionContainer(
-      height: 150,
+      label: '3 mb',
+
     ),
     PartitionContainer(
       height: 100,
+      label: '2 mb',
+    ),
+    PartitionContainer(
+      height: 100,
+      label: '2 mb',
     ),
     PartitionContainer(
       height: 50,
+      label: '1 mb',
     ),
     PartitionContainer(
       height: 50,
+      label: '1 mb',
     ),
     PartitionContainer(
-      height: 25,
+      height: 50,
+      label: '1 mb',
     ),
     PartitionContainer(
-      height: 75,
+      height: 100,
+      label: '2 mb',
     ),
   ];
   List<double> sizeListte = [
     200,
     150,
-    150,
+    100,
     100,
     50,
     50,
-    25,
-    25,
+    50,
+    100,
   ];
   List<Process> auxMemoryList = [];
   bool isNotEmpty = false;

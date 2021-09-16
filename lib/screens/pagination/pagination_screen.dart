@@ -17,22 +17,70 @@ class _PaginationScreenState extends State<PaginationScreen> {
   List<Process> processList = [];
 
   List<Widget> partitionMemoryList = [
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
-    PartitionContainer(height: 50),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
+    PartitionContainer(
+      height: 50,
+      label: '1 mb',
+    ),
   ];
 
   List<Widget> memoryList = [
@@ -267,7 +315,9 @@ class _PaginationScreenState extends State<PaginationScreen> {
                                 itemCount: auxPaginationList.length,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
-                                  return auxPaginationList[position].name == '' || auxPaginationList[position].isDeleted
+                                  return auxPaginationList[position].name ==
+                                              '' ||
+                                          auxPaginationList[position].isDeleted
                                       ? const SizedBox.shrink()
                                       : TableContainer(
                                           process: auxPaginationList[position],
