@@ -18,7 +18,7 @@ class _VariableStaticPartitionContainerState extends State<VariableStaticPartiti
   @override
   Widget build(BuildContext context) {
     return widget.process.isDeleted
-        ? Container(height: 100)
+        ? Container(height: widget.process.space)
         : Container(
             margin: EdgeInsets.only(
               bottom: widget.process.space - ((widget.process.size / 2) * 100),

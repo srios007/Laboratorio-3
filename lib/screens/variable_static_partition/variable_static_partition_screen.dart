@@ -9,23 +9,50 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class VariableStaticPartitionScreen extends StatefulWidget {
   @override
-  _VariableStaticPartitionScreenState createState() => _VariableStaticPartitionScreenState();
+  _VariableStaticPartitionScreenState createState() =>
+      _VariableStaticPartitionScreenState();
 }
 
-class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionScreen> {
+class _VariableStaticPartitionScreenState
+    extends State<VariableStaticPartitionScreen> {
   ScrollController _scrollController;
   List<Process> processList = [];
   List<Widget> memoryList = [
-    PartitionContainer(height: 200,),
-    PartitionContainer(height: 150,),
-    PartitionContainer(height: 150,),
-    PartitionContainer(height: 100,),
-    PartitionContainer(height: 50,),
-    PartitionContainer(height: 50,),
-    PartitionContainer(height: 25,),
-    PartitionContainer(height: 25,),
+    PartitionContainer(
+      height: 200,
+    ),
+    PartitionContainer(
+      height: 150,
+    ),
+    PartitionContainer(
+      height: 150,
+    ),
+    PartitionContainer(
+      height: 100,
+    ),
+    PartitionContainer(
+      height: 50,
+    ),
+    PartitionContainer(
+      height: 50,
+    ),
+    PartitionContainer(
+      height: 25,
+    ),
+    PartitionContainer(
+      height: 75,
+    ),
   ];
-  List<double> sizeListte = [200,150,150,100,50,50,25,25,];
+  List<double> sizeListte = [
+    200,
+    150,
+    150,
+    100,
+    50,
+    50,
+    25,
+    25,
+  ];
   List<Process> auxMemoryList = [];
   bool isNotEmpty = false;
   int index = 0;
@@ -64,7 +91,6 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                             element.isDeleted = false;
                           });
                         });
-
                         Navigator.pop(context);
                       },
                       padding: EdgeInsets.all(20),
@@ -231,10 +257,10 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
                                   return auxMemoryList[position].isDeleted
-                                  ? const SizedBox.shrink()
-                                  :TableContainer(
-                                    process: auxMemoryList[position],
-                                  );
+                                      ? const SizedBox.shrink()
+                                      : TableContainer(
+                                          process: auxMemoryList[position],
+                                        );
                                 },
                               ),
                             ),
@@ -268,9 +294,9 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return  VariableStaticPartitionContainer(
-                                      process: auxMemoryList[position],
-                                    );
+                              return VariableStaticPartitionContainer(
+                                process: auxMemoryList[position],
+                              );
                             },
                           ),
                         ),
@@ -307,11 +333,11 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
     setState(() {
       getIsDeleted();
       if (value) {
-        if (processList[position].size <= 2) {
+        
           processList[position].isSelected = value;
-          if (auxMemoryList.length < 8 || isNotEmpty) {
-            if (isNotEmpty) {
-              auxMemoryList.removeAt(index);
+          if (isNotEmpty) {
+            auxMemoryList.removeAt(index);
+            if (((processList[position].size / 2) * 100) <= sizeListte[index]) {
               auxMemoryList.insert(
                 index,
                 Process(
@@ -323,9 +349,30 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                   space: sizeListte[index],
                 ),
               );
-              print(processList[position].size.round().toRadixString(16));
-              getIsDeleted();
             } else {
+              processList[position].isSelected = false;
+              Alert(
+                context: context,
+                type: AlertType.error,
+                title: 'Memoria insuficiente',
+                desc:
+                    'El proceso no se puede agregar porque no hay más memoria.',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      'Ok',
+                      style: TextStyle(color: Palette.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                  )
+                ],
+              ).show();
+            }
+            getIsDeleted();
+          } else {
+            if (((processList[position].size / 2) * 100) <=
+                sizeListte[auxMemoryList.length]) {
               auxMemoryList.add(
                 Process(
                   isSelected: true,
@@ -336,46 +383,29 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                   space: sizeListte[auxMemoryList.length],
                 ),
               );
-              getIsDeleted();
+            } else {
+              processList[position].isSelected = false;
+              Alert(
+                context: context,
+                type: AlertType.error,
+                title: 'Memoria insuficiente',
+                desc:
+                    'El proceso no se puede agregar porque no hay más memoria.',
+                buttons: [
+                  DialogButton(
+                    child: Text(
+                      'Ok',
+                      style: TextStyle(color: Palette.white, fontSize: 20),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    width: 120,
+                  )
+                ],
+              ).show();
             }
-          } else {
-            processList[position].isSelected = false;
-            Alert(
-              context: context,
-              type: AlertType.error,
-              title: 'Memoria insuficiente',
-              desc: 'El proceso no se puede agregar porque no hay más memoria.',
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Palette.white, fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  width: 120,
-                )
-              ],
-            ).show();
+            getIsDeleted();
           }
-        } else {
-          processList[position].isSelected = false;
-          Alert(
-            context: context,
-            type: AlertType.error,
-            title: 'No se puede agregar el proceso',
-            desc: 'El proceso sobrepasa el tamaño de 2 MB de las particiones.',
-            buttons: [
-              DialogButton(
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Palette.white, fontSize: 20),
-                ),
-                onPressed: () => Navigator.pop(context),
-                width: 120,
-              )
-            ],
-          ).show();
-        }
+    
       } else {
         processList[position].isSelected = false;
         int index = auxMemoryList.indexWhere(
