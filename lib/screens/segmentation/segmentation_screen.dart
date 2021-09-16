@@ -25,48 +25,7 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
     PartitionContainer(),
     PartitionContainer(),
   ];
-  List<Process> auxSegmentationList = [
-    Process(
-      isSelected: true,
-      isDeleted: false,
-      name: 'Segmento de Spotify',
-      size: 0.2,
-      id: '1',
-      color: Palette.spotify,
-    ),
-    Process(
-      isSelected: true,
-      isDeleted: false,
-      name: 'Segmento de Zoom',
-      size: 0.1,
-      id: '2',
-      color: Palette.zoom,
-    ),
-    Process(
-      isSelected: true,
-      isDeleted: false,
-      name: 'Segmento de Spotify',
-      size: 0.2,
-      id: '1',
-      color: Palette.spotify,
-    ),
-    Process(
-      isSelected: true,
-      isDeleted: false,
-      name: 'Segmento de Zoom',
-      size: 0.1,
-      id: '2',
-      color: Palette.zoom,
-    ),
-    Process(
-      isSelected: true,
-      isDeleted: false,
-      name: 'Segmento de Spotify y Zoom',
-      size: 0.3,
-      id: '1 2',
-      color: Palette.black,
-    ),
-  ];
+  List<Process> auxSegmentationList = [];
 
   bool isNotEmpty = false;
   bool findSpaceBool = false;
@@ -76,8 +35,6 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
   void initState() {
     _scrollController = ScrollController();
     processList = processCompleteConstantList;
-    processList[0].isSelected = true;
-    processList[1].isSelected = true;
     super.initState();
   }
 
@@ -196,7 +153,7 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                       ),
                     ),
                     Container(
-                      height:800,
+                      height: 800,
                       width: 503,
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -273,7 +230,7 @@ class _SegmentationScreenState extends State<SegmentationScreen> {
                                 // physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
                                   return auxSegmentationList[position].isDeleted
-                                      ? null
+                                      ? const SizedBox.shrink()
                                       : TableContainer(
                                           process:
                                               auxSegmentationList[position],

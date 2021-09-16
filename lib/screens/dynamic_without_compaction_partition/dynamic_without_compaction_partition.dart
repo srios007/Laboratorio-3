@@ -174,7 +174,6 @@ class _DynamicWithoutCompactionPartitionScreenState
                                     'Nombre del proceso',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      // fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
@@ -192,7 +191,6 @@ class _DynamicWithoutCompactionPartitionScreenState
                                   'Dirección base',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    // fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -209,7 +207,6 @@ class _DynamicWithoutCompactionPartitionScreenState
                                   'Capacidad',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    // fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
@@ -396,7 +393,8 @@ class _DynamicWithoutCompactionPartitionScreenState
             context: context,
             type: AlertType.error,
             title: 'Memoria insuficiente',
-            desc: 'El proceso no se puede adicionar otra partición porque no hay más memoria.',
+            desc:
+                'El proceso no se puede adicionar otra partición porque no hay más memoria.',
             buttons: [
               DialogButton(
                 child: Text(
@@ -414,13 +412,7 @@ class _DynamicWithoutCompactionPartitionScreenState
         int index = auxMemoryList.indexWhere(
           (process) => process.size == processList[position].size,
         );
-        // if (index == auxMemoryList.length - 1) {
-        //   auxMemoryList.removeWhere(
-        //       (process) => process.size == processList[position].size);
-        // } else
-        {
-          auxMemoryList[index].isDeleted = true;
-        }
+        auxMemoryList[index].isDeleted = true;
       }
     });
   }
