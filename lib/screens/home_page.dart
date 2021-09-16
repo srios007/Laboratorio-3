@@ -606,7 +606,7 @@ class _HomePageState extends State<HomePage> {
             physics: NeverScrollableScrollPhysics(),
             itemCount: auxMemoryList.length,
             itemBuilder: (context, position) {
-              return StaticPartitionContainer(
+              return VariableStaticPartitionContainer(
                 process: auxMemoryList[position],
               );
             },

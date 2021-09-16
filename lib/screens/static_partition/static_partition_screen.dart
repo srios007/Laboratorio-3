@@ -7,6 +7,8 @@ import 'package:laboratorio_3/models/models.dart';
 import 'package:laboratorio_3/screens/home.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import 'widgets/static_partition_container.dart';
+
 class StaticPartitionScreen extends StatefulWidget {
   @override
   _StaticPartitionScreenState createState() => _StaticPartitionScreenState();

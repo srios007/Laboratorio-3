@@ -268,7 +268,7 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return  StaticPartitionContainer(
+                              return  VariableStaticPartitionContainer(
                                       process: auxMemoryList[position],
                                     );
                             },

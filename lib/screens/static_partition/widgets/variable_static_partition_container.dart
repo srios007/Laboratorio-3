@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:laboratorio_3/config/config.dart';
 import 'package:laboratorio_3/models/models.dart';
 
-class StaticPartitionContainer extends StatefulWidget {
-  StaticPartitionContainer({
+class VariableStaticPartitionContainer extends StatefulWidget {
+  VariableStaticPartitionContainer({
     @required this.process,
   });
   Process process;
 
   @override
-  _StaticPartitionContainerState createState() =>
-      _StaticPartitionContainerState();
+  _VariableStaticPartitionContainerState createState() =>
+      _VariableStaticPartitionContainerState();
 }
 
-class _StaticPartitionContainerState extends State<StaticPartitionContainer> {
+class _VariableStaticPartitionContainerState extends State<VariableStaticPartitionContainer> {
   @override
   Widget build(BuildContext context) {
     return widget.process.isDeleted
         ? Container(height: 100)
         : Container(
             margin: EdgeInsets.only(
-              bottom: 100- ((widget.process.size / 2) * 100),
+              bottom: widget.process.space - ((widget.process.size / 2) * 100),
             ),
             height: (widget.process.size / 2) * 100,
             width: 500,
