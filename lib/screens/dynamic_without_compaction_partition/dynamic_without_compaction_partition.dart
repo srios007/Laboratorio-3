@@ -17,23 +17,12 @@ class _DynamicWithoutCompactionPartitionScreenState
     extends State<DynamicWithoutCompactionPartitionScreen> {
   ScrollController _scrollController;
   List<Process> processList = [];
-  List<Widget> memoryList = [
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-    PartitionContainer(),
-  ];
+  List<Widget> memoryList = [];
+  List<double> sizeList = [0];
   List<Process> auxMemoryList = [];
   bool isNotEmpty = false;
-  bool findSpaceBool = false;
-  bool canAdd = false;
-  double totalMemory = 0;
-
   int index = 0;
+  double totalMemory = 0;
 
   @override
   void initState() {
@@ -130,7 +119,7 @@ class _DynamicWithoutCompactionPartitionScreenState
             physics: ClampingScrollPhysics(),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -150,10 +139,7 @@ class _DynamicWithoutCompactionPartitionScreenState
                             return CustomCheckBox(
                               process: processList[position],
                               onChanged: (value) {
-                                dynamicPartitionWithoutCompactionFuntion(
-                                  position,
-                                  value,
-                                );
+                                staticPartitionFuntion(position, value);
                               },
                             );
                           },
@@ -237,9 +223,11 @@ class _DynamicWithoutCompactionPartitionScreenState
                                 itemCount: auxMemoryList.length,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, position) {
-                                  return TableContainer(
-                                    process: auxMemoryList[position],
-                                  );
+                                  return auxMemoryList[position].isDeleted
+                                      ? const SizedBox.shrink()
+                                      : TableContainer(
+                                          process: auxMemoryList[position],
+                                        );
                                 },
                               ),
                             ),
@@ -250,23 +238,22 @@ class _DynamicWithoutCompactionPartitionScreenState
                     Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-                          height: 802,
+                          height: 800,
                           width: 500,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Palette.darkBlue,
-                            ),
-                            color: Palette.lightBlue.withOpacity(0.3),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: memoryList.length,
+                            itemBuilder: (context, position) {
+                              return memoryList[position];
+                            },
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
                           height: 800,
                           width: 500,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Palette.darkBlue,
+                              color: Palette.black,
                             ),
                             color: Palette.lightBlue.withOpacity(0.3),
                           ),
@@ -274,7 +261,7 @@ class _DynamicWithoutCompactionPartitionScreenState
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: auxMemoryList.length,
                             itemBuilder: (context, position) {
-                              return CompactationContainer(
+                              return VariableStaticPartitionContainer(
                                 process: auxMemoryList[position],
                               );
                             },
@@ -292,60 +279,12 @@ class _DynamicWithoutCompactionPartitionScreenState
     );
   }
 
-  void setTotalMemory(position) {
-    setState(() {
-      totalMemory += processList[position].size;
-    });
-  }
-
-  void enoughSPace(int position) {
-    setState(() {
-      canAdd = true;
-    });
-    // derecha: Lista de procesos
-    // izquierda: Lista gráfica de procesos
-    auxMemoryList.forEach((process) {
-      if (processList[position].size <= process.size && process.isDeleted) {
-        setState(() {
-          canAdd = false;
-          index = auxMemoryList.indexWhere(
-            (process2) =>
-                process2.size >= processList[position].size &&
-                process2.isDeleted,
-          );
-        });
-        return isNotEmpty;
-      }
-    });
-  }
-
-  bool findSpace(int position) {
-    setState(() {
-      findSpaceBool = false;
-    });
-    // derecha: Lista de procesos
-    // izquierda: Lista gráfica de procesos
-    auxMemoryList.forEach((process) {
-      if (processList[position].size <= process.size && process.isDeleted) {
-        setState(() {
-          findSpaceBool = true;
-          index = auxMemoryList.indexWhere(
-            (process2) =>
-                process2.size >= processList[position].size &&
-                process2.isDeleted,
-          );
-        });
-        return isNotEmpty;
-      }
-    });
-  }
-
-  bool getIsDeleted() {
+  bool getIsDeleted(int position) {
     setState(() {
       isNotEmpty = false;
     });
     auxMemoryList.forEach((element) {
-      if (element.isDeleted) {
+      if (processList[position].size <= element.size && element.isDeleted) {
         setState(() {
           isNotEmpty = true;
           index = auxMemoryList.indexWhere(
@@ -357,57 +296,131 @@ class _DynamicWithoutCompactionPartitionScreenState
     });
   }
 
-  void dynamicPartitionWithoutCompactionFuntion(int position, bool value) {
-    enoughSPace(position);
-    setTotalMemory(position);
+  void setTotalMemory(position) {
     setState(() {
-      findSpace(position);
+      print(totalMemory);
+    });
+  }
+
+  void staticPartitionFuntion(int position, bool value) {
+    setState(() {
+      getIsDeleted(position);
+
       if (value) {
         processList[position].isSelected = value;
+        if ((800 - totalMemory) >= ((processList[position].size / 2) * 100)) {
+          if (isNotEmpty) {
+            auxMemoryList.removeAt(index);
+            if (((processList[position].size / 2) * 100) <= sizeList[index]) {
+              auxMemoryList.insert(
+                index,
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                  color: processList[position].color,
+                  space: sizeList[index],
+                ),
+              );
+              setTotalMemory(position);
+            } else {
+              memoryList.add(
+                PartitionContainer(
+                  height: (processList[position].size / 2) * 100,
+                  label: '${processList[position].size} mb',
+                ),
+              );
+              if (sizeList[0] == 0) {
+                sizeList.clear();
+                sizeList.add(
+                  ((processList[position].size / 2) * 100),
+                );
+                totalMemory += ((processList[position].size / 2) * 100);
+              } else {
+                sizeList.add(
+                  ((processList[position].size / 2) * 100),
+                );
+                totalMemory += ((processList[position].size / 2) * 100);
+              }
 
-        if (findSpaceBool) {
-          double aux = auxMemoryList[index].size;
-          auxMemoryList.removeAt(index);
-          auxMemoryList.insert(
-            index,
-            Process(
-              isSelected: true,
-              isDeleted: false,
-              name: processList[position].name,
-              size: processList[position].size,
-              space: aux - processList[position].size,
-              color: processList[position].color,
-            ),
-          );
-          getIsDeleted();
+              auxMemoryList.add(
+                Process(
+                  isSelected: true,
+                  isDeleted: false,
+                  name: processList[position].name,
+                  size: processList[position].size,
+                  color: processList[position].color,
+                  space: (processList[position].size / 2) * 100,
+                ),
+              );
+              setTotalMemory(position);
+            }
+            getIsDeleted(position);
+          } else {
+            memoryList.add(
+              PartitionContainer(
+                height: (processList[position].size / 2) * 100,
+                label: '${processList[position].size} mb',
+              ),
+            );
+            if (sizeList[0] == 0) {
+              sizeList.clear();
+              sizeList.add(
+                ((processList[position].size / 2) * 100),
+              );
+              totalMemory += ((processList[position].size / 2) * 100);
+            } else {
+              sizeList.add(
+                ((processList[position].size / 2) * 100),
+              );
+              totalMemory += ((processList[position].size / 2) * 100);
+            }
+            auxMemoryList.add(
+              Process(
+                isSelected: true,
+                isDeleted: false,
+                name: processList[position].name,
+                size: processList[position].size,
+                color: processList[position].color,
+                space: (processList[position].size / 2) * 100,
+              ),
+            );
+
+            getIsDeleted(position);
+            setTotalMemory(position);
+          }
         } else {
-          auxMemoryList.add(
-            Process(
-              isSelected: true,
-              isDeleted: false,
-              name: processList[position].name,
-              size: processList[position].size,
-              space: 0,
-              color: processList[position].color,
-            ),
-          );
-          getIsDeleted();
+          processList[position].isSelected = false;
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: 'Memoria insuficiente',
+            desc: 'El proceso no se puede adicionar otra partición porque no hay más memoria.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Palette.white, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              )
+            ],
+          ).show();
         }
       } else {
         processList[position].isSelected = false;
         int index = auxMemoryList.indexWhere(
           (process) => process.size == processList[position].size,
         );
-        if (index == auxMemoryList.length - 1) {
-          auxMemoryList.removeWhere(
-              (process) => process.size == processList[position].size);
-        } else {
+        // if (index == auxMemoryList.length - 1) {
+        //   auxMemoryList.removeWhere(
+        //       (process) => process.size == processList[position].size);
+        // } else
+        {
           auxMemoryList[index].isDeleted = true;
-          auxMemoryList[index].space = auxMemoryList[position].size;
         }
-        setState(() {
-          totalMemory -= processList[position].size;
-        });
       }
     });
   }

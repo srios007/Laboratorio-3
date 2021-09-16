@@ -25,7 +25,6 @@ class _VariableStaticPartitionScreenState
     PartitionContainer(
       height: 150,
       label: '3 mb',
-
     ),
     PartitionContainer(
       height: 100,
@@ -52,7 +51,7 @@ class _VariableStaticPartitionScreenState
       label: '2 mb',
     ),
   ];
-  List<double> sizeListte = [
+  List<double> sizeList = [
     200,
     150,
     100,
@@ -346,7 +345,7 @@ class _VariableStaticPartitionScreenState
           processList[position].isSelected = value;
           if (isNotEmpty) {
             auxMemoryList.removeAt(index);
-            if (((processList[position].size / 2) * 100) <= sizeListte[index]) {
+            if (((processList[position].size / 2) * 100) <= sizeList[index]) {
               auxMemoryList.insert(
                 index,
                 Process(
@@ -355,7 +354,7 @@ class _VariableStaticPartitionScreenState
                   name: processList[position].name,
                   size: processList[position].size,
                   color: processList[position].color,
-                  space: sizeListte[index],
+                  space: sizeList[index],
                 ),
               );
             } else {
@@ -381,7 +380,7 @@ class _VariableStaticPartitionScreenState
             getIsDeleted();
           } else {
             if (((processList[position].size / 2) * 100) <=
-                sizeListte[auxMemoryList.length]) {
+                sizeList[auxMemoryList.length]) {
               auxMemoryList.add(
                 Process(
                   isSelected: true,
@@ -389,7 +388,7 @@ class _VariableStaticPartitionScreenState
                   name: processList[position].name,
                   size: processList[position].size,
                   color: processList[position].color,
-                  space: sizeListte[auxMemoryList.length],
+                  space: sizeList[auxMemoryList.length],
                 ),
               );
             } else {
