@@ -376,7 +376,6 @@ class _PaginationScreenState extends State<PaginationScreen> {
           int aux = processList[position].size < 0.5
               ? 1
               : int.parse(processList[position].size.toStringAsFixed(0));
-
           if (processList[position].size % aux == 0) {
             for (int i = 0; i < aux; i++) {
               auxPaginationList.removeAt(index);

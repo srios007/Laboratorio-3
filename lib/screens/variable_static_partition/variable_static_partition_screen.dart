@@ -25,7 +25,7 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
     PartitionContainer(height: 25,),
     PartitionContainer(height: 25,),
   ];
-  List<double> machete = [200,150,150,100,50,50,25,25,];
+  List<double> sizeListte = [200,150,150,100,50,50,25,25,];
   List<Process> auxMemoryList = [];
   bool isNotEmpty = false;
   int index = 0;
@@ -80,7 +80,7 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Particiones estáticas fijas',
+                        'Particiones estáticas variables',
                         style: TextStyle(
                           color: Palette.white,
                           fontSize: 30,
@@ -320,7 +320,7 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                   name: processList[position].name,
                   size: processList[position].size,
                   color: processList[position].color,
-                  space: machete[index],
+                  space: sizeListte[index],
                 ),
               );
               print(processList[position].size.round().toRadixString(16));
@@ -333,7 +333,7 @@ class _VariableStaticPartitionScreenState extends State<VariableStaticPartitionS
                   name: processList[position].name,
                   size: processList[position].size,
                   color: processList[position].color,
-                  space: machete[auxMemoryList.length],
+                  space: sizeListte[auxMemoryList.length],
                 ),
               );
               getIsDeleted();
